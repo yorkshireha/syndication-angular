@@ -22,13 +22,13 @@
 		<div class="tables__notes">Last updated on {{league.updated_on}}</div>
 
 		<div *ngFor="let division of league.divisions" class="tables__division">
-			<div *ngIf="0" class="tables__title tables__title--division">{{division.longName}}</div>
+			<div class="tables__title tables__title--division">{{division.longName}}</div>
 
 			<table class="table">
 
 				<tr class="table__header table__header--row">
 					<th class="table__header table__header--pos"></th>
-					<th class="table__header table__header--team_name">{{division.longName}}</th>
+					<th class="table__header table__header--team_name"></th>
 					<th class="table__header table__header--played">Ply</th>
 					<th class="table__header table__header--won">W</th>
 					<th class="table__header table__header--drawn">D</th>
@@ -37,7 +37,7 @@
 					<th class="table__header table__header--goals_a">GA</th>
 					<th class="table__header table__header--goal_diff">GD</th>
 					<th class="table__header table__header--points">Pts</th>
-					<th class="table__header table__header--max_points">Max Pts</th>
+					<th class="table__header table__header--max_points">Max</th>
 				</tr>
 
 				<tr *ngFor="let team of division.teams" class="table__row table__row--{{team.extraclass}">
