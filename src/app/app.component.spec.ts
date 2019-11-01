@@ -21,16 +21,16 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have as title 'syndication-angular'`, () => {
+  it(`should have as title 'YHA Leagues'`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.debugElement.componentInstance;
-    expect(app.title).toEqual('syndication-angular');
+    expect(app.title).toEqual('YHA Leagues');
   });
 
   it('should render title', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.debugElement.nativeElement;
-    expect(compiled.querySelector('.header span').textContent).toContain('syndication-angular!');
+    expect(compiled.querySelector('.header span').textContent).toContain('YHA Leagues');
   });
 });
