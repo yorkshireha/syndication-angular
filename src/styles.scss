@@ -1,0 +1,91 @@
+body{
+	font-family: sans-serif;;
+}
+
+.header{
+	font-size: 2em;
+}
+
+.leagman {
+
+	.tables{
+		width:100%;
+		
+		&__form{
+					padding: 10px;
+		}
+
+		&__title{
+			font-size: 1.5em;
+
+			&--division{
+				font-size: 1.2em;
+			}
+		}
+
+		&__notes{
+			font-size: .8em;
+		}
+
+	}
+
+	.table{
+		width:100%;
+
+		&__header{
+			background-color: #ccc;
+			text-align: right;
+			vertical-align: middle;
+			width: 6%;
+		}
+
+		&__header--pos{
+			text-align: center;
+			width: 3%;
+		}
+
+		&__header--team_name{
+			text-align: left;
+			width: 37%;
+		}
+
+		&__row{
+			border-bottom: 1px solid #ededed;
+			padding: 8px 4px;
+			text-align: right;
+			vertical-align: top;
+		}
+
+		&__row--pos{
+			text-align: center;
+		}
+
+		&__row--team_name{
+			text-align: left;
+		}
+
+		&__row--deductions{
+			display: block;
+			font-size: .8em;
+		}
+
+	}
+
+	@media all and (max-device-width: 599px) {
+		.table__header--won,
+		.table__header--drawn,
+		.table__header--lost,
+		.table__header--goals_f,
+		.table__header--goals_a,
+		.table__header--max_points,
+		.table__row--won,
+		.table__row--drawn,
+		.table__row--lost,
+		.table__row--goals_f,
+		.table__row--goals_a,
+		.table__row--max_points
+		{
+			display: none;
+		}
+	}
+}

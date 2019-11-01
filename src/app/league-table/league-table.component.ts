@@ -5,8 +5,7 @@ import { LeagueService } from '../league.service';
 
 @Component({
   selector: 'league-table',
-  templateUrl: './league-table.component.html',
-  styleUrls: ['./league-table.component.css']
+  templateUrl: './league-table.component.html'
 })
 export class LeagueTableComponent implements OnInit {
   selectForm: FormGroup;
