@@ -2,6 +2,12 @@
     <span>{{title}}!</span>
 </div>
 
+<nav>
+  <a routerLink="/">Dashboard</a>&nbsp;|
+  <a routerLink="/fixtures">Fixtures</a>&nbsp;|
+  <a routerLink="/tables">Tables</a>
+</nav>
+
 <div>
-	<league-table></league-table>
+	<router-outlet></router-outlet>
 </div>
