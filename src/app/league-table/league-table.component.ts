@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
+import { Location } from '@angular/common';
 import { FormBuilder, FormGroup, FormArray, FormControl, ValidatorFn } from '@angular/forms';
 
 import { LeagueService } from '../league.service';
@@ -12,10 +14,13 @@ export class LeagueTableComponent implements OnInit {
   leaguesList;
   gotData: boolean = false;
   league;
-  divisions;
-  team;
 
-  constructor(private leagueService: LeagueService, private formBuilder: FormBuilder) {
+  constructor(
+  	private formBuilder: FormBuilder,
+  	private leagueService: LeagueService,
+  	private router: Router,
+  	private route: ActivatedRoute
+  ) {
     this.selectForm = this.formBuilder.group({
       leaguesList: ['']
     });
@@ -24,6 +29,13 @@ export class LeagueTableComponent implements OnInit {
   }
 
   ngOnInit() {
+  	console.log(this.route.snapshot);
+  	console.log(this.route.snapshot.params);
+
+  	if (this.route.snapshot.params.league) {
+  		console.log(this.route.snapshot.params.league);
+  		this.getLeaguesData(this.route.snapshot.params.league);
+  	}
   	this.onChanges();
   }
 
@@ -42,11 +54,11 @@ export class LeagueTableComponent implements OnInit {
     this.leagueService.getTables(id)
       .subscribe((data) => {
         console.log('', data);
-        this.league = data['league'];
-        this.gotData = true;
-        console.log('league', this.league);
         console.log('division', data['league']['divisions']);
         console.log('team', data['league']['divisions'][0]['teams'][0]);
+        this.league = data['league'];
+        console.log('league', this.league);
+        this.gotData = true;
         }, err => {
           console.log(err);
         }
@@ -55,8 +67,15 @@ export class LeagueTableComponent implements OnInit {
 
 	onChanges(): void {
 	  this.selectForm.valueChanges.subscribe(values => {
-	    console.log(values);
-    this.getLeaguesData(values.leaguesList);
+	    console.log(values, this.route);
+    	this.router.navigate(['tables', {league: values.leaguesList}]).then( e => {
+	      if (e) {
+	        console.log("Navigation is successful!", e);
+	        this.ngOnInit();
+	      } else {
+	        console.log("Navigation has failed!", e);
+	      }
+    	});
 	  });
 	}
 
