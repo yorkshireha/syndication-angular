@@ -1,0 +1,61 @@
+<div class="leagman">
+
+	<div class="tables fixtures__form">
+
+		<form [formGroup]="selectForm" (ngSubmit)="submit()">
+
+			<select formControlName="leaguesList" id="leaguesList">
+				<!-- optgroup label="2019-2020" -->
+					<option *ngFor="let league of leaguesList; let i = index" [value]="leaguesList[i].id">{{league.name}}</option>
+				<!-- /optgroup -->
+			</select>
+
+			<button>Show</button>
+
+		</form>
+
+	</div>
+
+	<div *ngIf="gotData" class="tables">
+
+		<!--
+		<div class="tables__title tables_title--league">{{league.name}}</div>
+		<div class="tables__notes">Last updated on {{league.updated_on}}</div>
+		-->
+
+		<div class="tables__division">
+
+			<table class="table">
+
+				<tr class="table__header table__header--row">
+					<th class="table__header table__header--">League</th>
+					<th class="table__header table__header--">Division</th>
+					<th class="table__header table__header--">Date</th>
+					<th class="table__header table__header--">Time</th>
+					<th class="table__header table__header--">Home</th>
+					<th class="table__header table__header--">.</th>
+					<th class="table__header table__header--">.</th>
+					<th class="table__header table__header--">Away</th>
+					<th class="table__header table__header--">Venu</th>
+				</tr>
+
+				<tr *ngFor="let fixture of fixtures" class="table__row">
+					<td class="table__row table__row--">{{fixture.leagueName}}</td>
+					<td class="table__row table__row--">{{fixture.divisionName}}</td>
+					<td class="table__row table__row--">{{fixture.date}}</td>
+					<td class="table__row table__row--">{{fixture.time}}</td>
+					<td class="table__row table__row--">{{fixture.homeTeam}}</td>
+					<td class="table__row table__row--">{{fixture.homeScore}}</td>
+					<td class="table__row table__row--">{{fixture.awayScore}}</td>
+					<td class="table__row table__row--">{{fixture.awayTeam}}</td>
+					<td class="table__row table__row--">{{fixture.venueName}}</td>
+				</tr>
+
+			</table>
+
+		</div>
+
+	</div>
+
+</div>
+
