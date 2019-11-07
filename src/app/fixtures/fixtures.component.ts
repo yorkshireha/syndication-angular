@@ -10,76 +10,206 @@ import { LeagueService } from '../league.service';
   templateUrl: './fixtures.component.html'
 })
 export class FixturesComponent implements OnInit {
-  selectForm: FormGroup;
-  leaguesList;
-  gotData: boolean = false;
-  fixtures;
+  leagueForm: FormGroup;
+  filterForm: FormGroup;
+  gotData = false;
+  leagueData;
+  filterData;
+  fixturesData;
 
   constructor(
-  	private formBuilder: FormBuilder,
-  	private leagueService: LeagueService,
-  	private router: Router,
-  	private route: ActivatedRoute
+    private formBuilder: FormBuilder,
+    private leagueService: LeagueService,
+    private router: Router,
+    private route: ActivatedRoute
   ) {
-    this.selectForm = this.formBuilder.group({
-      leaguesList: ['']
+    this.leagueForm = this.formBuilder.group({
+      league: [''],
     });
-    
+
+    this.filterForm = this.formBuilder.group({
+      date: [''],
+      division: [''],
+      club: [''],
+      team: [''],
+      game: [''],
+      venueName: [''],
+      homeAway: ['']
+    });
+
     this.getLeaguesList();
   }
 
-  ngOnInit() {
-  	console.log(this.route.snapshot);
-  	console.log(this.route.snapshot.params);
+  ngOnInit(): void {
+    console.log(this.route.snapshot.params);
 
-  	if (this.route.snapshot.params.league) {
-	  	console.log(this.route.snapshot.params.league);
-  		this.getFixturesData(this.route.snapshot.params.league);
-  	}
-  	this.onChanges();
+    if (this.route.snapshot.params.league) {
+      this.leagueForm.patchValue({
+        league: this.route.snapshot.params.league
+      });
+      this.getViewData();
+    }
   }
 
-  getLeaguesList() {
+  getViewData(): void {
+    console.log(this.route.snapshot.params.league);
+    this.getfilterData();
+    this.getFixturesData();
+  }
+
+  getLeaguesList(): void {
     this.leagueService.getLeaguesList()
       .subscribe((data) => {
         console.log(data);
-        this.leaguesList = data;
-        }, err => {
-          console.log(err);
-        }
-      );
+        this.leagueData = data;
+
+        this.onLeagueChanges();
+
+      }, err => {
+        console.log(err);
+      });
   }
 
-  getFixturesData(id) {
-    this.leagueService.getFixtures(id)
+  getfilterData(): void {
+    this.leagueService.getFixturesForm(this.leagueForm.value.league)
       .subscribe((data) => {
-        console.log('', data);
-        this.fixtures = data;
-        console.log('team', this.fixture);
-        this.gotData = true;
-        }, err => {
+        console.log('getfilterData', data);
+
+        data.games = [
+          'All',
+          'Confirmed result',
+          'Unconfirmed result',
+          'Unplayed'
+        ];
+
+        data.homeAway = [
+          'All',
+          'Home',
+          'Away'
+        ];
+
+        data.teams = [
+          {0: 'All teams'},
+          {1: '1'},
+          {2: '2'},
+          {3: '3'},
+          {4: '4'},
+          {5: '5'},
+          {6: '6'},
+          {7: '7'},
+          {8: '8'},
+          {9: '9'},
+          {10:'10'}
+        ];
+
+        this.filterData = data;
+        console.log(this.filterForm);
+
+        this.filterForm.setValue({
+          date: this.filterData.dates[1].datestamp,
+          division: '',
+          club: '',
+          team: '',
+          game: 0,
+          venueName: '',
+          homeAway: 0
+        });
+
+        this.onFilterChanges();
+
+      }, err => {
           console.log(err);
-        }
-      );
+      });
   }
 
-	onChanges(): void {
-	  this.selectForm.valueChanges.subscribe(values => {
-	    console.log(values, this.route);
-    	this.router.navigate(['fixtures', {league: values.leaguesList}]).then( e => {
-	      if (e) {
-	        console.log("Navigation is successful!", e);
-	        this.ngOnInit();
-	      } else {
-	        console.log("Navigation has failed!", e);
-	      }
-    	});
-	  });
-	}
+  getFixturesData(): void {
+    this.leagueService.getFixtures(this.leagueForm.value.league)
+      .subscribe((data) => {
+        console.log('getFixturesDate', data);
+        this.fixturesData = this.filterFixtures(data);
+      }, err => {
+        console.log(err);
+      });
+  }
 
-  submit() {
-    console.log(this.selectForm.value);
-    this.getFixturesData(this.selectForm.value.leaguesList);
+  filterFixtures(data) {
+    const filter = this.filterForm.value;
+
+    console.log(filter);
+    data.forEach(division => {
+      let newFixtures = [];
+
+      if (filter.division !== '' && filter.division !== division.name) {
+        division.fixtures = newFixtures;
+      }
+
+      division.fixtures.forEach(fixture => {
+        let keepFixture = true;
+
+        if (filter.date !== '' && filter.date !== fixture.datestamp) {
+          keepFixture = false;
+        }
+
+        if (filter.club !== '') {
+          if (filter.club !== fixture.homeClub && filter.club !== fixture.awayClub) {
+            keepFixture = false;
+          } else {
+            if (filter.homeAway === 1 && filter.club !== fixture.homeClub) {
+              keepFixture = false;
+            } else if (filter.homeAway === 2 && filter.club !== fixture.awayClub) {
+              keepFixture = false;
+            }
+            if (filter.team > 0) {
+              let team = filter.club + ' ' + filter.team;
+              if (fixture.homeTeam !== team && fixture.awayTeam !== team ) {
+                keepFixture = false;
+              }
+            }
+          }
+        }
+
+
+        if (filter.game > 0 && filter.game !== fixture.game) {
+           keepFixture = false;
+        }
+
+        if (filter.venueName !== '' && filter.venueName !== fixture.venueName) {
+           keepFixture = false;
+        }
+
+        if (keepFixture) {
+          newFixtures.push(fixture);
+        }
+      });
+
+      division.fixtures = newFixtures;
+
+    });
+
+    console.log(data);
+    return data;
+  }
+
+  onLeagueChanges(): void {
+    this.leagueForm.valueChanges.subscribe(values => {
+      console.log(values, this.route);
+      this.router.navigate(['fixtures', {league: this.leagueForm.value.league}]).then( e => {
+        if (e) {
+          console.log('Navigation is successful!', e);
+          this.getViewData();
+        } else {
+          console.log('Navigation has failed!', e);
+        }
+      });
+    });
+  }
+
+  onFilterChanges(): void {
+    this.filterForm.valueChanges.subscribe(values => {
+      console.log(values);
+      this.getFixturesData();
+       // this.getFixturesData(this.leagueForm.value.league);
+    });
   }
 
 }
