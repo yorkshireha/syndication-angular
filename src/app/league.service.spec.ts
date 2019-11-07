@@ -5,8 +5,8 @@ import { LeagueService } from './league.service';
 
 describe('LeagueService', () => {
   beforeEach(() => TestBed.configureTestingModule({
-  	imports: [HttpClientTestingModule],
-  	providers: [LeagueService]
+    imports: [HttpClientTestingModule],
+    providers: [LeagueService]
   }));
 
   it('should be created', () => {

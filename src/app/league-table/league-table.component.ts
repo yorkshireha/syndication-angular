@@ -6,37 +6,37 @@ import { FormBuilder, FormGroup, FormArray, FormControl, ValidatorFn } from '@an
 import { LeagueService } from '../league.service';
 
 @Component({
-  selector: 'league-table',
+  selector: 'app-league-table',
   templateUrl: './league-table.component.html'
 })
 export class LeagueTableComponent implements OnInit {
   selectForm: FormGroup;
   leaguesList;
-  gotData: boolean = false;
+  gotData = false;
   league;
 
   constructor(
-  	private formBuilder: FormBuilder,
-  	private leagueService: LeagueService,
-  	private router: Router,
-  	private route: ActivatedRoute
+    private formBuilder: FormBuilder,
+    private leagueService: LeagueService,
+    private router: Router,
+    private route: ActivatedRoute
   ) {
     this.selectForm = this.formBuilder.group({
       leaguesList: ['']
     });
-    
+
     this.getLeaguesList();
   }
 
   ngOnInit() {
-  	console.log(this.route.snapshot);
-  	console.log(this.route.snapshot.params);
+    console.log(this.route.snapshot);
+    console.log(this.route.snapshot.params);
 
-  	if (this.route.snapshot.params.league) {
-  		console.log(this.route.snapshot.params.league);
-  		this.getLeaguesData(this.route.snapshot.params.league);
-  	}
-  	this.onChanges();
+    if (this.route.snapshot.params.league) {
+      console.log(this.route.snapshot.params.league);
+      this.getLeaguesData(this.route.snapshot.params.league);
+    }
+    this.onChanges();
   }
 
   getLeaguesList() {
@@ -54,9 +54,9 @@ export class LeagueTableComponent implements OnInit {
     this.leagueService.getTables(id)
       .subscribe((data) => {
         console.log('', data);
-        console.log('division', data['league']['divisions']);
-        console.log('team', data['league']['divisions'][0]['teams'][0]);
-        this.league = data['league'];
+        console.log('division', data.league.divisions);
+        console.log('team', data.league.divisions[0].teams[0]);
+        this.league = data.league;
         console.log('league', this.league);
         this.gotData = true;
         }, err => {
@@ -65,19 +65,19 @@ export class LeagueTableComponent implements OnInit {
       );
   }
 
-	onChanges(): void {
-	  this.selectForm.valueChanges.subscribe(values => {
-	    console.log(values, this.route);
-    	this.router.navigate(['tables', {league: values.leaguesList}]).then( e => {
-	      if (e) {
-	        console.log("Navigation is successful!", e);
-	        this.ngOnInit();
-	      } else {
-	        console.log("Navigation has failed!", e);
-	      }
-    	});
-	  });
-	}
+  onChanges(): void {
+    this.selectForm.valueChanges.subscribe(values => {
+      console.log(values, this.route);
+      this.router.navigate(['tables', {league: values.leaguesList}]).then( e => {
+        if (e) {
+          console.log('Navigation is successful!', e);
+          this.ngOnInit();
+        } else {
+          console.log('Navigation has failed!', e);
+        }
+      });
+    });
+  }
 
   submit() {
     console.log(this.selectForm.value);
