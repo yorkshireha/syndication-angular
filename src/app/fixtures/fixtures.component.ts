@@ -72,7 +72,7 @@ export class FixturesComponent implements OnInit {
 
   getfilterData(): void {
     this.leagueService.getFixturesForm(this.leagueForm.value.league)
-      .subscribe((data) => {
+      .subscribe((data: any) => {
         console.log('getfilterData', data);
 
         data.games = [
@@ -89,17 +89,17 @@ export class FixturesComponent implements OnInit {
         ];
 
         data.teams = [
-          {0: 'All teams'},
-          {1: '1'},
-          {2: '2'},
-          {3: '3'},
-          {4: '4'},
-          {5: '5'},
-          {6: '6'},
-          {7: '7'},
-          {8: '8'},
-          {9: '9'},
-          {10:'10'}
+          {0:   'All teams'},
+          {1:   '1'},
+          {2:   '2'},
+          {3:   '3'},
+          {4:   '4'},
+          {5:   '5'},
+          {6:   '6'},
+          {7:   '7'},
+          {8:   '8'},
+          {9:   '9'},
+          {10: '10'}
         ];
 
         this.filterData = data;
@@ -137,7 +137,7 @@ export class FixturesComponent implements OnInit {
 
     console.log(filter);
     data.forEach(division => {
-      let newFixtures = [];
+      const newFixtures = [];
 
       if (filter.division !== '' && filter.division !== division.name) {
         division.fixtures = newFixtures;
@@ -160,7 +160,7 @@ export class FixturesComponent implements OnInit {
               keepFixture = false;
             }
             if (filter.team > 0) {
-              let team = filter.club + ' ' + filter.team;
+              const team = filter.club + ' ' + filter.team;
               if (fixture.homeTeam !== team && fixture.awayTeam !== team ) {
                 keepFixture = false;
               }

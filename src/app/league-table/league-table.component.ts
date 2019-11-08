@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { Location } from '@angular/common';
 import { FormBuilder, FormGroup, FormArray, FormControl, ValidatorFn } from '@angular/forms';
 
 import { LeagueService } from '../league.service';
@@ -52,7 +51,7 @@ export class LeagueTableComponent implements OnInit {
 
   getLeaguesData(id) {
     this.leagueService.getTables(id)
-      .subscribe((data) => {
+      .subscribe((data: any) => {
         console.log('', data);
         console.log('division', data.league.divisions);
         console.log('team', data.league.divisions[0].teams[0]);
