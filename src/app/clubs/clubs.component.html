@@ -1,0 +1,39 @@
+<div class="leagman">
+
+	<div class="tables fixtures__form">
+
+		<form [formGroup]="selectForm">
+
+			<div class="form__row">
+				<div class="form__row">
+					<span class="form__label">Club</span>
+					<select formControlName="clubsList">
+							<option *ngFor="let club of clubsList" [value]="club.id">{{club.name}}</option>
+					</select>
+				</div>
+			</div>
+
+		</form>
+
+	</div>
+
+	<div *ngIf="clubData" class="tables">
+
+    <div>{{clubData.name}}</div>
+
+      <dt *ngIf="clubData.teams">Teams</dt>
+        <dd *ngIf="clubData.teams">{{clubData.teams}}</dd>
+      <dt *ngIf="clubData.website">Website</dt>
+        <dd *ngIf="clubData.website">{{clubData.website}}</dd>
+      <dt *ngIf="clubData.email">EMail</dt>
+        <dd *ngIf="clubData.email">{{clubData.email}}</dd>
+      <dt *ngIf="clubData.colours">Colours</dt>
+        <dd *ngIf="clubData.colours">{{clubData.colours}}</dd>
+      <dt *ngIf="clubData.notes">Notes</dt>
+        <dd *ngIf="clubData.notes">{{clubData.notes}}</dd>
+
+
+	</div>
+
+</div>
+

@@ -1,0 +1,46 @@
+<div class="leagman">
+
+	<div class="tables fixtures__form">
+
+		<form [formGroup]="selectForm">
+
+			<div class="form__row">
+				<div class="form__row">
+					<span class="form__label">Venues</span>
+					<select formControlName="venuesList">
+							<option *ngFor="let venue of venuesList" [value]="venue.id">{{venue.name}}</option>
+					</select>
+				</div>
+			</div>
+
+		</form>
+
+	</div>
+
+	<div *ngIf="venueData" class="tables">
+
+    <div>{{venueData.name}}</div>
+
+      <dt *ngIf="venueData.address">Address</dt>
+        <dd *ngIf="venueData.address">{{venueData.address}}</dd>
+      <dt *ngIf="venueData.postcode">Postcode</dt>
+        <dd *ngIf="venueData.postcode">{{venueData.postcode}}</dd>
+      <dt *ngIf="venueData.contactName">Contact</dt>
+        <dd *ngIf="venueData.contactName">{{venueData.contactName}}</dd>
+      <dt *ngIf="venueData.telephone1">Tel1</dt>
+        <dd *ngIf="venueData.telephone1">{{venueData.telephone1}}</dd>
+      <dt *ngIf="venueData.telephone2">Tel2</dt>
+        <dd *ngIf="venueData.telephone2">{{venueData.telephone2}}</dd>
+      <dt *ngIf="venueData.astro">Astro</dt>
+        <dd *ngIf="venueData.astro">{{venueData.astro}}</dd>
+      <dt *ngIf="venueData.grass">Grass</dt>
+        <dd *ngIf="venueData.grass">{{venueData.grass}}</dd>
+      <dt *ngIf="venueData.clubHouse">Club house</dt>
+        <dd *ngIf="venueData.clubHouse">{{venueData.clubHouse}}</dd>
+      <dt *ngIf="venueData.notes">Notes</dt>
+        <dd *ngIf="venueData.notes">{{venueData.notes}}</dd>
+
+	</div>
+
+</div>
+

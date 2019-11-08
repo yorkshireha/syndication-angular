@@ -14,11 +14,6 @@ export class LeagueService {
     return this.http.get(api);
   }
 
-  public getClubsList() {
-    const api = this.apiPrefix + 'clubs';
-    return this.http.get(api);
-  }
-
   public getTables(id: number) {
     const api = this.apiPrefix + 'tables=' + id;
     return this.http.get(api);
@@ -31,6 +26,26 @@ export class LeagueService {
 
   public getFixtures(id: number) {
     const api = this.apiPrefix + 'fixtures=' + id;
+    return this.http.get(api);
+  }
+
+  public getClubsList() {
+    const api = this.apiPrefix + 'clubs';
+    return this.http.get(api);
+  }
+
+  public getClub(id: number) {
+    const api = this.apiPrefix + 'club=' + id;
+    return this.http.get(api);
+  }
+
+  public getVenuesList() {
+    const api = this.apiPrefix + 'venues';
+    return this.http.get(api);
+  }
+
+  public getVenue(id: number) {
+    const api = this.apiPrefix + 'venue=' + id;
     return this.http.get(api);
   }
 
