@@ -3,7 +3,7 @@
 // @Injectable({
 //   providedIn: 'root'
 // })
-// export class LeagueServiceMock {
+// export class ApiServiceMock {
 // 	tablesUrlPrefix: string = '/data/tables_';
 //
 // 	tableData = {

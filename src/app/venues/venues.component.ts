@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, FormArray, FormControl, ValidatorFn } from '@angular/forms';
 
-import { LeagueService } from '../league.service';
+import { ApiService } from '../api.service';
 
 @Component({
   selector: 'app-venues',
@@ -15,7 +15,7 @@ export class VenuesComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private leagueService: LeagueService,
+    private leagueService: ApiService,
     private router: Router,
     private route: ActivatedRoute
   ) {

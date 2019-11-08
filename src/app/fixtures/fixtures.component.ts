@@ -3,7 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 import { FormBuilder, FormGroup, FormArray, FormControl, ValidatorFn } from '@angular/forms';
 
-import { LeagueService } from '../league.service';
+import { ApiService } from '../api.service';
 
 @Component({
   selector: 'app-fixtures',
@@ -19,7 +19,7 @@ export class FixturesComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private leagueService: LeagueService,
+    private leagueService: ApiService,
     private router: Router,
     private route: ActivatedRoute
   ) {

@@ -2,7 +2,7 @@
 //
 // import { LeagueTablesComponent } from './league-table.component';
 //
-// import { LeagueServiceMock } from '../mocks/league.service.mock';
+// import { ApiServiceMock } from '../mocks/api.service.mock';
 //
 // describe('LeagueTablesComponent', () => {
 //   let component: LeagueTablesComponent;
@@ -11,8 +11,8 @@
 //   beforeEach(async(() => {
 //     TestBed.configureTestingModule({
 //       declarations: [ LeagueTablesComponent ],
-//   		imports: [LeagueServiceMock],
-//       providers: [LeagueServiceMock]
+//   		imports: [ApiServiceMock],
+//       providers: [ApiServiceMock]
 //     })
 //     .compileComponents();
 //   }));

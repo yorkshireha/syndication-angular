@@ -1,16 +1,16 @@
 import { TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 
-import { LeagueService } from './league.service';
+import { ApiService } from './api.service';
 
-describe('LeagueService', () => {
+describe('ApiService', () => {
   beforeEach(() => TestBed.configureTestingModule({
     imports: [HttpClientTestingModule],
-    providers: [LeagueService]
+    providers: [ApiService]
   }));
 
   it('should be created', () => {
-    const service: LeagueService = TestBed.get(LeagueService);
+    const service: ApiService = TestBed.get(ApiService);
     expect(service).toBeTruthy();
   });
 });

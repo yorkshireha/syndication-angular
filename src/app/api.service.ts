@@ -4,7 +4,7 @@ import { HttpClient } from '@angular/common/http';
 @Injectable({
   providedIn: 'root'
 })
-export class LeagueService {
+export class ApiService {
   apiPrefix = 'http://www.yorkshireha.org.uk/e107_plugins/yha_pages/lmGet.json?';
 
   constructor(private http: HttpClient) { }
