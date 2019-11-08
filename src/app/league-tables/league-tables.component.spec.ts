@@ -1,16 +1,16 @@
 // import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 //
-// import { LeagueTableComponent } from './league-table.component';
+// import { LeagueTablesComponent } from './league-table.component';
 //
 // import { LeagueServiceMock } from '../mocks/league.service.mock';
 //
-// describe('LeagueTableComponent', () => {
-//   let component: LeagueTableComponent;
-//   let fixture: ComponentFixture<LeagueTableComponent>;
+// describe('LeagueTablesComponent', () => {
+//   let component: LeagueTablesComponent;
+//   let fixture: ComponentFixture<LeagueTablesComponent>;
 //
 //   beforeEach(async(() => {
 //     TestBed.configureTestingModule({
-//       declarations: [ LeagueTableComponent ],
+//       declarations: [ LeagueTablesComponent ],
 //   		imports: [LeagueServiceMock],
 //       providers: [LeagueServiceMock]
 //     })
@@ -18,7 +18,7 @@
 //   }));
 //
 //   beforeEach(() => {
-//     fixture = TestBed.createComponent(LeagueTableComponent);
+//     fixture = TestBed.createComponent(LeagueTablesComponent);
 //     component = fixture.componentInstance;
 //     fixture.detectChanges();
 //   });

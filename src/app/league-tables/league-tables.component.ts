@@ -6,9 +6,9 @@ import { LeagueService } from '../league.service';
 
 @Component({
   selector: 'app-league-table',
-  templateUrl: './league-table.component.html'
+  templateUrl: './league-tables.component.html'
 })
-export class LeagueTableComponent implements OnInit {
+export class LeagueTablesComponent implements OnInit {
   selectForm: FormGroup;
   leaguesList;
   gotData = false;

@@ -2,15 +2,15 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { LeagueTableComponent } from './league-table/league-table.component';
+import { LeagueTablesComponent } from './league-tables/league-tables.component';
 import { FixturesComponent } from './fixtures/fixtures.component';
 import { ClubsComponent } from './clubs/clubs.component';
 import { VenuesComponent } from './venues/venues.component';
 
 const routes: Routes = [
   { path: 'dashboard',  component: DashboardComponent },
-  { path: 'tables',     component: LeagueTableComponent },
-  { path: 'tables/:id', component: LeagueTableComponent },
+  { path: 'tables',     component: LeagueTablesComponent },
+  { path: 'tables/:id', component: LeagueTablesComponent },
   { path: 'fixtures',   component: FixturesComponent },
   { path: 'clubs',      component: ClubsComponent },
   { path: 'clubs/:id',  component: ClubsComponent },
