@@ -6,8 +6,8 @@
     "start": "ng serve",
     "build": "ng build",
     "test": "ng test",
-    "lint": "ng lint",
-    "lint:w": "chokidar src/**/*.ts -c \"npm run lint\" --initial --verbose",
+    "lint": "ng lint --format=verbose",
+    "lint:w": "chokidar src/**/*.ts -c \"npm run lint\" --initial --format=verbose",
     "e2e": "ng e2e"
   },
   "private": true,
