@@ -10,7 +10,7 @@ import { ApiService } from '../api.service';
   templateUrl: './fixtures.component.html'
 })
 export class FixturesComponent implements OnInit {
-  leagueForm: FormGroup;
+  leagueId;
   filterForm: FormGroup;
   leagueData;
   filterData;
@@ -22,10 +22,6 @@ export class FixturesComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute
   ) {
-    this.leagueForm = this.formBuilder.group({
-      league: [''],
-    });
-
     this.filterForm = this.formBuilder.group({
       date: [''],
       division: [''],
@@ -35,17 +31,12 @@ export class FixturesComponent implements OnInit {
       venueName: [''],
       homeAway: ['']
     });
-
-    this.getLeaguesList();
   }
 
   ngOnInit(): void {
     console.log(this.route.snapshot.params);
 
     if (this.route.snapshot.params.league) {
-      this.leagueForm.patchValue({
-        league: this.route.snapshot.params.league
-      });
       this.getViewData();
     }
   }
@@ -55,21 +46,8 @@ export class FixturesComponent implements OnInit {
     this.getFixturesData();
   }
 
-  getLeaguesList(): void {
-    this.apiService.getLeaguesList()
-      .subscribe((data) => {
-        console.log(data);
-        this.leagueData = data;
-
-        this.onLeagueChanges();
-
-      }, err => {
-        console.log(err);
-      });
-  }
-
   getFilterData(): void {
-    this.apiService.getFixturesForm(this.leagueForm.value.league)
+    this.apiService.getFixturesForm(this.leagueId)
       .subscribe((data: any) => {
         console.log('getFilterData', data);
 
@@ -121,7 +99,7 @@ export class FixturesComponent implements OnInit {
   }
 
   getFixturesData(): void {
-    this.apiService.getFixtures(this.leagueForm.value.league)
+    this.apiService.getFixtures(this.leagueId)
       .subscribe((data) => {
         console.log('getFixturesDate', data);
         this.fixturesData = this.filterFixtures(data);
@@ -188,17 +166,16 @@ export class FixturesComponent implements OnInit {
     return data;
   }
 
-  onLeagueChanges(): void {
-    this.leagueForm.valueChanges.subscribe(values => {
-      console.log(values, this.route);
-      this.router.navigate(['fixtures', {league: this.leagueForm.value.league}]).then( e => {
-        if (e) {
-          console.log('Navigation is successful!', e);
-          this.getViewData();
-        } else {
-          console.log('Navigation has failed!', e);
-        }
-      });
+  onLeagueChange(event): void {
+    console.log(event, this.route);
+    this.leagueId = event.leagueId;
+    this.router.navigate(['fixtures', {league: this.leagueId}]).then( e => {
+      if (e) {
+        console.log('Navigation is successful!', e);
+        this.getViewData();
+      } else {
+        console.log('Navigation has failed!', e);
+      }
     });
   }
 
@@ -206,7 +183,6 @@ export class FixturesComponent implements OnInit {
     this.filterForm.valueChanges.subscribe(values => {
       console.log(values);
       this.getFixturesData();
-       // this.getFixturesData(this.leagueForm.value.league);
     });
   }
 

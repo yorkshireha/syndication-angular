@@ -2,17 +2,7 @@
 
 	<div class="tables tables__form">
 
-		<form [formGroup]="leagueForm" (ngSubmit)="submit()">
-
-			<div class="form__row">
-  			<select formControlName="leaguesList" id="leaguesList">
-  				<!-- optgroup label="2019-2020" -->
-  					<option *ngFor="let league of leaguesList; let i = index" [value]="leaguesList[i].id">{{league.name}}</option>
-  				<!-- /optgroup -->
-  			</select>
-			</div>
-
-		</form>
+    <app-league-select (leagueChanged)="onLeagueChange($event)"></app-league-select>
 
 		<form [formGroup]="filterForm">
 

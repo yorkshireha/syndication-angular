@@ -12,14 +12,19 @@ import { FixturesComponent } from './fixtures/fixtures.component';
 import { ClubsComponent } from './clubs/clubs.component';
 import { VenuesComponent } from './venues/venues.component';
 
+import { LeagueSelectComponent } from './controls/league-select/league-select.component';
+
 @NgModule({
   declarations: [
     AppComponent,
+    /* Main view components */
     DashboardComponent,
     LeagueTablesComponent,
     FixturesComponent,
     ClubsComponent,
-    VenuesComponent
+    VenuesComponent,
+    /* Controls */
+    LeagueSelectComponent
   ],
   imports: [
     BrowserModule,

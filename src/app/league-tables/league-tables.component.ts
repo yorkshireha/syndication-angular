@@ -9,12 +9,10 @@ import { ApiService } from '../api.service';
   templateUrl: './league-tables.component.html'
 })
 export class LeagueTablesComponent implements OnInit {
-  leagueForm: FormGroup;
   filterForm: FormGroup;
-  leaguesList;
   leagueData;
   divisionsDataFiltered;
-  divisionList: array;
+  divisionList;
 
   get divisions() {
     return this.filterForm.get('divisions') as FormArray;
@@ -26,41 +24,18 @@ export class LeagueTablesComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute
   ) {
-    this.leagueForm = this.formBuilder.group({
-      leaguesList: ['']
-    });
-
     this.filterForm = this.formBuilder.group({
       divisions: this.formBuilder.array([])
     });
-
-    this.getLeaguesList();
   }
 
   ngOnInit() {
-    console.log(this.route.snapshot);
     console.log(this.route.snapshot.params);
 
     if (this.route.snapshot.params.league) {
       console.log(this.route.snapshot.params.league);
       this.getLeagueData();
     }
-    this.onLeagueChanges();
-  }
-
-  getViewData() {
-    this.getLeagueData();
-  }
-
-  getLeaguesList() {
-    this.apiService.getLeaguesList()
-      .subscribe((data) => {
-        console.log(data);
-        this.leaguesList = data;
-        }, err => {
-          console.log(err);
-        }
-      );
   }
 
   getLeagueData() {
@@ -99,17 +74,15 @@ export class LeagueTablesComponent implements OnInit {
 
   }
 
-  onLeagueChanges(): void {
-    this.leagueForm.valueChanges.subscribe(values => {
-      console.log(values, this.route);
-      this.router.navigate(['tables', {league: values.leaguesList}]).then( e => {
-        if (e) {
-          console.log('Navigation is successful!', e);
-          this.getViewData();
-        } else {
-          console.log('Navigation has failed!', e);
-        }
-      });
+  onLeagueChange(event): void {
+    console.log(event, this.route);
+    this.router.navigate(['tables', {league: event.leagueId}]).then( e => {
+      if (e) {
+        console.log('Navigation is successful!', e);
+        this.getLeagueData();
+      } else {
+        console.log('Navigation has failed!', e);
+      }
     });
   }
 
