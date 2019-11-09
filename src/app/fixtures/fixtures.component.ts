@@ -12,14 +12,13 @@ import { ApiService } from '../api.service';
 export class FixturesComponent implements OnInit {
   leagueForm: FormGroup;
   filterForm: FormGroup;
-  gotData = false;
   leagueData;
   filterData;
   fixturesData;
 
   constructor(
     private formBuilder: FormBuilder,
-    private leagueService: ApiService,
+    private apiService: ApiService,
     private router: Router,
     private route: ActivatedRoute
   ) {
@@ -52,13 +51,12 @@ export class FixturesComponent implements OnInit {
   }
 
   getViewData(): void {
-    console.log(this.route.snapshot.params.league);
-    this.getfilterData();
+    this.getFilterData();
     this.getFixturesData();
   }
 
   getLeaguesList(): void {
-    this.leagueService.getLeaguesList()
+    this.apiService.getLeaguesList()
       .subscribe((data) => {
         console.log(data);
         this.leagueData = data;
@@ -70,10 +68,10 @@ export class FixturesComponent implements OnInit {
       });
   }
 
-  getfilterData(): void {
-    this.leagueService.getFixturesForm(this.leagueForm.value.league)
+  getFilterData(): void {
+    this.apiService.getFixturesForm(this.leagueForm.value.league)
       .subscribe((data: any) => {
-        console.log('getfilterData', data);
+        console.log('getFilterData', data);
 
         data.games = [
           'All',
@@ -123,7 +121,7 @@ export class FixturesComponent implements OnInit {
   }
 
   getFixturesData(): void {
-    this.leagueService.getFixtures(this.leagueForm.value.league)
+    this.apiService.getFixtures(this.leagueForm.value.league)
       .subscribe((data) => {
         console.log('getFixturesDate', data);
         this.fixturesData = this.filterFixtures(data);

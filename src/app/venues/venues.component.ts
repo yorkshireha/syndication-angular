@@ -15,7 +15,7 @@ export class VenuesComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private leagueService: ApiService,
+    private apiService: ApiService,
     private router: Router,
     private route: ActivatedRoute
   ) {
@@ -37,7 +37,7 @@ export class VenuesComponent implements OnInit {
   }
 
   getVenuesList() {
-    this.leagueService.getVenuesList()
+    this.apiService.getVenuesList()
       .subscribe((data) => {
         console.log(data);
         this.venuesList = data;
@@ -48,7 +48,7 @@ export class VenuesComponent implements OnInit {
   }
 
   getVenueData() {
-    this.leagueService.getVenue(this.route.snapshot.params.venue)
+    this.apiService.getVenue(this.route.snapshot.params.venue)
       .subscribe((data: any) => {
         console.log('', data);
         this.venueData = data;

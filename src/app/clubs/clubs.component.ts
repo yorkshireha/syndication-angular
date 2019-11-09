@@ -15,7 +15,7 @@ export class ClubsComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private leagueService: ApiService,
+    private apiService: ApiService,
     private router: Router,
     private route: ActivatedRoute
   ) {
@@ -37,7 +37,7 @@ export class ClubsComponent implements OnInit {
   }
 
   getClubsList() {
-    this.leagueService.getClubsList()
+    this.apiService.getClubsList()
       .subscribe((data) => {
         console.log(data);
         this.clubsList = data;
@@ -48,7 +48,7 @@ export class ClubsComponent implements OnInit {
   }
 
   getClubData() {
-    this.leagueService.getClub(this.route.snapshot.params.club)
+    this.apiService.getClub(this.route.snapshot.params.club)
       .subscribe((data: any) => {
         console.log('', data);
         this.clubData = data;
