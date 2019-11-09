@@ -2,26 +2,47 @@
 
 	<div class="tables tables__form">
 
-		<form [formGroup]="selectForm" (ngSubmit)="submit()">
+		<form [formGroup]="leagueForm" (ngSubmit)="submit()">
 
-			<select formControlName="leaguesList" id="leaguesList">
-				<!-- optgroup label="2019-2020" -->
-					<option *ngFor="let league of leaguesList; let i = index" [value]="leaguesList[i].id">{{league.name}}</option>
-				<!-- /optgroup -->
-			</select>
+			<div class="form__row">
+  			<select formControlName="leaguesList" id="leaguesList">
+  				<!-- optgroup label="2019-2020" -->
+  					<option *ngFor="let league of leaguesList; let i = index" [value]="leaguesList[i].id">{{league.name}}</option>
+  				<!-- /optgroup -->
+  			</select>
+			</div>
 
-			<button>Show</button>
+		</form>
+
+		<form [formGroup]="filterForm">
+
+			<div f="filterData" class="tables">
+
+				<div class="form__row" formArrayName="divisions">
+					<span class="form__label">Divisions</span>
+					<ng-container *ngFor="let division of divisions.controls; let i = index">
+  					<label>
+  					  <input type="checkbox" [value]="i" [formControlName]="i">
+  					  {{divisionList[i]}}
+  					</label>
+					</ng-container>
+				</div>
+
+			</div>
 
 		</form>
 
 	</div>
 
-	<div *ngIf="gotData" class="tables">
+  <hr/>
 
-		<div class="tables__title tables_title--league">{{league.name}}</div>
-		<div class="tables__notes">Last updated on {{league.updated_on}}</div>
+	<div *ngIf="leagueData" class="tables">
 
-		<div *ngFor="let division of league.divisions" class="tables__division">
+		<div class="tables__title tables_title--league">{{leagueData.name}}</div>
+		<div class="tables__notes">Last updated on {{leagueData.updated_on}}</div>
+
+		<div *ngFor="let division of divisionsDataFiltered" class="tables__division">
+
 			<div class="tables__title tables__title--division">{{division.longName}}</div>
 
 			<table class="table">

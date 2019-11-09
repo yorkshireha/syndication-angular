@@ -9,19 +9,29 @@ import { ApiService } from '../api.service';
   templateUrl: './league-tables.component.html'
 })
 export class LeagueTablesComponent implements OnInit {
-  selectForm: FormGroup;
+  leagueForm: FormGroup;
+  filterForm: FormGroup;
   leaguesList;
-  gotData = false;
-  league;
+  leagueData;
+  divisionsDataFiltered;
+  divisionList: array;
+
+  get divisions() {
+    return this.filterForm.get('divisions') as FormArray;
+  }
 
   constructor(
     private formBuilder: FormBuilder,
-    private leagueService: ApiService,
+    private apiService: ApiService,
     private router: Router,
     private route: ActivatedRoute
   ) {
-    this.selectForm = this.formBuilder.group({
+    this.leagueForm = this.formBuilder.group({
       leaguesList: ['']
+    });
+
+    this.filterForm = this.formBuilder.group({
+      divisions: this.formBuilder.array([])
     });
 
     this.getLeaguesList();
@@ -33,13 +43,17 @@ export class LeagueTablesComponent implements OnInit {
 
     if (this.route.snapshot.params.league) {
       console.log(this.route.snapshot.params.league);
-      this.getLeaguesData(this.route.snapshot.params.league);
+      this.getLeagueData();
     }
-    this.onChanges();
+    this.onLeagueChanges();
+  }
+
+  getViewData() {
+    this.getLeagueData();
   }
 
   getLeaguesList() {
-    this.leagueService.getLeaguesList()
+    this.apiService.getLeaguesList()
       .subscribe((data) => {
         console.log(data);
         this.leaguesList = data;
@@ -49,28 +63,49 @@ export class LeagueTablesComponent implements OnInit {
       );
   }
 
-  getLeaguesData(id) {
-    this.leagueService.getTables(id)
+  getLeagueData() {
+    this.apiService.getTables(this.route.snapshot.params.league)
       .subscribe((data: any) => {
         console.log('', data);
         console.log('division', data.league.divisions);
         console.log('team', data.league.divisions[0].teams[0]);
-        this.league = data.league;
-        console.log('league', this.league);
-        this.gotData = true;
+        this.leagueData = data.league;
+        this.divisionsDataFiltered = [...this.leagueData.divisions];
+        console.log('#divisionsDataFiltered', this.divisionsDataFiltered);
+        this.getFilterData();
         }, err => {
           console.log(err);
         }
       );
   }
 
-  onChanges(): void {
-    this.selectForm.valueChanges.subscribe(values => {
+  filterLeagueData() {
+    this.divisionsDataFiltered = [];
+    this.leagueData.divisions.forEach((division, ix) => {
+      if (this.divisions.value[ix]) {
+        this.divisionsDataFiltered.push(division);
+      }
+    });
+  }
+
+  getFilterData(): void {
+    this.divisionList = [];
+    this.leagueData.divisions.forEach(division => {
+      this.divisions.push(this.formBuilder.control(true));
+      this.divisionList.push(division.longName);
+    });
+
+    this.onFilterChanges();
+
+  }
+
+  onLeagueChanges(): void {
+    this.leagueForm.valueChanges.subscribe(values => {
       console.log(values, this.route);
       this.router.navigate(['tables', {league: values.leaguesList}]).then( e => {
         if (e) {
           console.log('Navigation is successful!', e);
-          this.ngOnInit();
+          this.getViewData();
         } else {
           console.log('Navigation has failed!', e);
         }
@@ -78,9 +113,10 @@ export class LeagueTablesComponent implements OnInit {
     });
   }
 
-  submit() {
-    console.log(this.selectForm.value);
-    this.getLeaguesData(this.selectForm.value.leaguesList);
+  onFilterChanges(): void {
+    this.filterForm.valueChanges.subscribe(values => {
+      this.filterLeagueData();
+    });
   }
 
 }
