@@ -9,6 +9,7 @@ import { ApiService } from '../api.service';
   templateUrl: './league-tables.component.html'
 })
 export class LeagueTablesComponent implements OnInit {
+  leagueId;
   filterForm: FormGroup;
   leagueData;
   divisionsDataFiltered;
@@ -33,6 +34,7 @@ export class LeagueTablesComponent implements OnInit {
     console.log(this.route.snapshot.params);
 
     if (this.route.snapshot.params.league) {
+      this.leagueId = this.route.snapshot.params.league;
       console.log(this.route.snapshot.params.league);
       this.getLeagueData();
     }
@@ -64,6 +66,9 @@ export class LeagueTablesComponent implements OnInit {
   }
 
   getFilterData(): void {
+    this.filterForm = this.formBuilder.group({
+      divisions: this.formBuilder.array([])
+    });
     this.divisionList = [];
     this.leagueData.divisions.forEach(division => {
       this.divisions.push(this.formBuilder.control(true));

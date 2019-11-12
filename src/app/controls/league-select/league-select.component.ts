@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, Output, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 
 import { ApiService } from '../../api.service';
@@ -11,19 +11,27 @@ export class LeagueSelectComponent implements OnInit {
   @Output() leagueChanged = new EventEmitter<object>();
   leagueForm: FormGroup;
   leaguesList;
+  private _leagueId;
+
+  @Input()
+  set selectedLeague(leagueId: string) {
+    this._leagueId = leagueId || '';
+  }
+
 
   constructor(
     private formBuilder: FormBuilder,
     private apiService: ApiService
   ) {
-    this.leagueForm = this.formBuilder.group({
-      leaguesList: ['']
-    });
-
     this.getLeaguesList();
   }
 
   ngOnInit() {
+    console.log('_leagueId', this._leagueId);
+    this.leagueForm = this.formBuilder.group({
+      leaguesList: [this._leagueId]
+    });
+
     this.onLeagueChanges();
   }
 

@@ -2,7 +2,7 @@
 
 	<div class="tables fixtures__form">
 
-    <app-league-select (leagueChanged)="onLeagueChange($event)"></app-league-select>
+    <app-league-select [selectedLeague]="leagueId" (leagueChanged)="onLeagueChange($event)"></app-league-select>
 
 		<form [formGroup]="filterForm">
 

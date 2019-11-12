@@ -37,6 +37,7 @@ export class FixturesComponent implements OnInit {
     console.log(this.route.snapshot.params);
 
     if (this.route.snapshot.params.league) {
+      this.leagueId = this.route.snapshot.params.league;
       this.getViewData();
     }
   }
