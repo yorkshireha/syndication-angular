@@ -11,11 +11,11 @@ export class LeagueSelectComponent implements OnInit {
   @Output() leagueChanged = new EventEmitter<object>();
   leagueForm: FormGroup;
   leaguesList;
-  private _leagueId;
+  leagueId;
 
   @Input()
   set selectedLeague(leagueId: string) {
-    this._leagueId = leagueId || '';
+    this.leagueId = leagueId || '';
   }
 
 
@@ -27,9 +27,9 @@ export class LeagueSelectComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log('_leagueId', this._leagueId);
+    console.log('leagueId', this.leagueId);
     this.leagueForm = this.formBuilder.group({
-      leaguesList: [this._leagueId]
+      leaguesList: [this.leagueId]
     });
 
     this.onLeagueChanges();
