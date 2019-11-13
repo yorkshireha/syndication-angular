@@ -1,16 +1,47 @@
-body{
-	font-family: sans-serif;;
-}
-
-.header{
-	font-size: 2em;
-}
-
 .leagman {
+
+  /*==================================================
+    Filter form
+    ==================================================*/
+
+  .filterForm {
+    border: 1px solid #ccc;
+    margin-top: 10px;
+
+    .formRow {
+      display: grid;
+      grid-template-columns: 200px 1fr;
+      grid-gap: 16px;
+      padding: 10px;
+
+      &__label {
+        grid-column: 1 / 2;
+      }
+
+      &__field {
+        grid-column: 2 / 3;
+
+      }
+
+    }
+
+    .formField{
+
+      &--multiline {
+        display: block;
+      }
+
+    }
+
+  }
+
+  /*==================================================
+
+    ==================================================*/
 
 	.tables{
 		width:100%;
-		
+
 		&__form{
 					padding: 10px;
 		}
@@ -50,7 +81,7 @@ body{
 		}
 
 		&__row{
-			border-bottom: 1px solid #ededed;
+			border-bottom: 1px solid #ccc;
 			padding: 8px 4px;
 			text-align: right;
 			vertical-align: top;
@@ -72,15 +103,9 @@ body{
 	}
 
 	@media all and (max-device-width: 599px) {
-		.table__header--won,
-		.table__header--drawn,
-		.table__header--lost,
 		.table__header--goals_f,
 		.table__header--goals_a,
 		.table__header--max_points,
-		.table__row--won,
-		.table__row--drawn,
-		.table__row--lost,
 		.table__row--goals_f,
 		.table__row--goals_a,
 		.table__row--max_points

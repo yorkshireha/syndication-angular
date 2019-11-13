@@ -1,21 +1,23 @@
 <div class="leagman">
 
-	<div class="tables tables__form">
+	<div class="filterForm filterForm--tables">
 
     <app-league-select [selectedLeague]="leagueId" (leagueChanged)="onLeagueChange($event)"></app-league-select>
 
 		<form [formGroup]="filterForm">
 
-			<div f="filterData" class="tables">
+			<div class="formRow" formArrayName="divisions">
 
-				<div class="form__row" formArrayName="divisions">
-					<span class="form__label">Divisions</span>
-					<ng-container *ngFor="let division of divisions.controls; let i = index">
-  					<label>
+				<div class="formRow__label">Divisions</div>
+				<div class="formRow__field">
+  				<ng-container *ngFor="let division of divisions.controls; let i = index">
+
+  					<label class="formField--multiline">
   					  <input type="checkbox" [value]="i" [formControlName]="i">
   					  {{divisionList[i]}}
   					</label>
-					</ng-container>
+
+  				</ng-container>
 				</div>
 
 			</div>
@@ -39,7 +41,7 @@
 
 				<tr class="table__header table__header--row">
 					<th class="table__header table__header--pos"></th>
-					<th class="table__header table__header--team_name"></th>
+					<th class="table__header table__header--team_name">Team</th>
 					<th class="table__header table__header--played">Ply</th>
 					<th class="table__header table__header--won">W</th>
 					<th class="table__header table__header--drawn">D</th>

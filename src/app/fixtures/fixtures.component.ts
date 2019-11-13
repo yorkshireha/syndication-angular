@@ -15,6 +15,7 @@ export class FixturesComponent implements OnInit {
   leagueData;
   filterData;
   fixturesData;
+  clubSelected = false;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -183,6 +184,7 @@ export class FixturesComponent implements OnInit {
   onFilterChanges(): void {
     this.filterForm.valueChanges.subscribe(values => {
       console.log(values);
+      this.clubSelected = values.club != '';
       this.getFixturesData();
     });
   }
