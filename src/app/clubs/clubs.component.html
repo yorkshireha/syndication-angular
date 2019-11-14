@@ -1,17 +1,19 @@
 <div class="leagman">
 
-	<div class="tables fixtures__form">
+	<div class="filterForm filterForm--clubs">
 
 		<form [formGroup]="selectForm">
 
-			<div class="form__row">
-				<div class="form__row">
-					<span class="form__label">Club</span>
-					<select formControlName="clubsList">
-							<option *ngFor="let club of clubsList" [value]="club.id">{{club.name}}</option>
-					</select>
-				</div>
-			</div>
+  		<div class="formRow">
+
+  			<div class="form__label">Club</div>
+				<div class="formRowField">
+    			<select formControlName="clubsList">
+    				<option *ngFor="let club of clubsList" [value]="club.id">{{club.name}}</option>
+    			</select>
+    		</div>
+
+  		</div>
 
 		</form>
 
