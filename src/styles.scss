@@ -36,6 +36,57 @@
   }
 
   /*==================================================
+    Fixtures
+    ==================================================*/
+  .fixtures {
+    width: 100%;
+
+    &__header {
+      background-color: #ccc;
+    }
+
+    &__row {
+      display: grid;
+      grid-template-columns: 2fr 2fr 4fr 1fr 1fr 4fr 3fr;
+      grid-gap: 16px;
+      padding: 10px;
+
+      &--date {
+        grid-column: 1 / 2;
+      }
+
+      &--time {
+        grid-column: 2 / 3;
+      }
+
+      &--homeTeam {
+        grid-column: 3 / 4;
+        text-align: right;
+      }
+
+      &--homeScore {
+        grid-column: 4 / 5;
+        text-align: center;
+      }
+
+      &--awayScore {
+        grid-column: 5 / 6;
+        text-align: center;
+      }
+
+      &--awayTeam {
+        grid-column: 6 / 7;
+      }
+
+      &--venue {
+        grid-column: 7 / 8;
+      }
+
+    }
+
+  }
+
+  /*==================================================
 
     ==================================================*/
 

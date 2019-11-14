@@ -4,135 +4,123 @@
 
     <app-league-select [selectedLeague]="leagueId" (leagueChanged)="onLeagueChange($event)"></app-league-select>
 
-		<form [formGroup]="filterForm">
+		<form *ngIf="filterData" [formGroup]="filterForm">
 
-			<ng-container *ngIf="filterData">
+			<div class="formRow">
+				<div class="formRow__label">Date</div>
+				<div class="formRow__field">
+					<select formCondivolName="date" class="formRow__field">
+							<option *ngFor="let date of filterData.dates" [value]="date.datestamp">{{date.datestamp | date}}</option>
+					</select>
+				</div>
+			</div>
+
+			<div class="formRow">
+				<div class="formRow__label">Division</div>
+				<div class="formRow__field">
+					<select formCondivolName="division">
+							<option *ngFor="let division of filterData.divisions" [value]="division.nameLong">{{division.nameLong}}</option>
+					</select>
+				</div>
+			</div>
+
+			<div class="formRow">
+				<div class="formRow__label">Club</div>
+				<div class="formRow__field">
+					<select formCondivolName="club">
+							<option *ngFor="let club of filterData.clubs" [value]="club.name">{{club.name}}</option>
+					</select>
+				</div>
+			</div>
+
+			<ng-container *ngIf="clubSelected">
 
 				<div class="formRow">
-					<div class="formRow__label">Date</div>
+					<div class="formRow__label">Team</div>
   				<div class="formRow__field">
-  					<select formControlName="date" class="formRow__field">
-  							<option *ngFor="let date of filterData.dates" [value]="date.datestamp">{{date.datestamp | date}}</option>
+  					<select formCondivolName="team">
+  							<option *ngFor="let team of filterData.teams; let i = index" [value]="i">{{team[i]}}</option>
   					</select>
   				</div>
 				</div>
 
 				<div class="formRow">
-					<div class="formRow__label">Division</div>
+					<div class="formRow__label">Home/Away</div>
   				<div class="formRow__field">
-  					<select formControlName="division">
-  							<option *ngFor="let division of filterData.divisions" [value]="division.nameLong">{{division.nameLong}}</option>
-  					</select>
-  				</div>
-				</div>
-
-				<div class="formRow">
-					<div class="formRow__label">Club</div>
-  				<div class="formRow__field">
-  					<select formControlName="club">
-  							<option *ngFor="let club of filterData.clubs" [value]="club.name">{{club.name}}</option>
-  					</select>
-  				</div>
-				</div>
-
-				<ng-container *ngIf="clubSelected">
-
-  				<div class="formRow">
-  					<div class="formRow__label">Team</div>
-    				<div class="formRow__field">
-    					<select formControlName="team">
-    							<option *ngFor="let team of filterData.teams; let i = index" [value]="i">{{team[i]}}</option>
-    					</select>
-    				</div>
-  				</div>
-
-  				<div class="formRow">
-  					<div class="formRow__label">Home/Away</div>
-    				<div class="formRow__field">
-    					<ng-container *ngFor="let venue of filterData.homeAway; let i = index">
-      					<label class="formField--multiline">
-      					  <input type="radio" formControlName="homeAway" [value]="i">
-      					  {{venue}}
-      					</label>
-    					</ng-container>
-    				</div>
-  				</div>
-
-				</ng-container>
-
-				<div class="formRow">
-					<div class="formRow__label">Games</div>
-  				<div class="formRow__field">
-  					<ng-container *ngFor="let game of filterData.games; let i = index">
+  					<ng-container *ngFor="let venue of filterData.homeAway; let i = index">
     					<label class="formField--multiline">
-    					  <input type="radio" formControlName="game" [value]="i">
-    					  {{game}}
+    					  <input type="radio" formCondivolName="homeAway" [value]="i">
+    					  {{venue}}
     					</label>
   					</ng-container>
   				</div>
 				</div>
 
-				<div class="formRow">
-					<div class="formRow__label">Venues</div>
-  				<div class="formRow__field">
-  					<select formControlName="venueName">
-  							<option *ngFor="let venue of filterData.venues" [value]="venue.name">{{venue.name}}</option>
-  					</select>
-  				</div>
-				</div>
-
 			</ng-container>
+
+			<div class="formRow">
+				<div class="formRow__label">Games</div>
+				<div class="formRow__field">
+					<ng-container *ngFor="let game of filterData.games; let i = index">
+  					<label class="formField--multiline">
+  					  <input type="radio" formCondivolName="game" [value]="i">
+  					  {{game}}
+  					</label>
+					</ng-container>
+				</div>
+			</div>
+
+			<div class="formRow">
+				<div class="formRow__label">Venues</div>
+				<div class="formRow__field">
+					<select formCondivolName="venueName">
+							<option *ngFor="let venue of filterData.venues" [value]="venue.name">{{venue.name}}</option>
+					</select>
+				</div>
+			</div>
 
 		</form>
 
 	</div>
 
-	<div *ngIf="fixturesData" class="tables">
+  <div *ngFor="let division of fixturesData" class="data">
 
-		<div *ngFor="let division of fixturesData" class="">
+    <ng-container *ngIf="division.fixtures.length != 0">
 
-			<ng-container *ngIf="division.fixtures.length != 0">
 
-  			<div class="tables__title tables_title--league">{{division.name}}</div>
-  			<!--
-  			<div class="tables__notes">Last updated on {{league.updated_on}}</div>
-  			-->
+			<div class="title title--fixtures">{{division.name}}</div>
+			<!--
+			<div class="tables__notes">Last updated on {{league.updated_on}}</div>
+			-->
 
-  			<div class="tables__division">
+			<div class="fixtures">
 
-  				<table class="table">
+				<div class="fixtures__row">
+					<div class="fixtures__row--date">Date</div>
+					<div class="fixtures__row--time">Time</div>
+					<div class="fixtures__row--homeTeam">Home</div>
+					<div class="fixtures__row--homeScore">.</div>
+					<div class="fixtures__row--awayScore">.</div>
+					<div class="fixtures__row--awayTeam">Away</div>
+					<div class="fixtures__row--venue">Venue</div>
+				</div>
 
-  					<tr class="table__header table__header--row">
-  						<th class="table__header table__header--">Date</th>
-  						<th class="table__header table__header--">Time</th>
-  						<th class="table__header table__header--">Home</th>
-  						<th class="table__header table__header--">.</th>
-  						<th class="table__header table__header--">.</th>
-  						<th class="table__header table__header--">Away</th>
-  						<th class="table__header table__header--">Venu</th>
-  					</tr>
+				<ng-container *ngFor="let fixture of division.fixtures" class="fixtures__row">
+				  <div class="fixtures__row">
+						<div class="fixtures__row--date">{{fixture.datestamp | date}}</div>
+						<div class="fixtures__row--time">{{fixture.time}}</div>
+						<div class="fixtures__row--homeTeam">{{fixture.homeTeam}}</div>
+						<div class="fixtures__row--homeScore">{{fixture.homeScore}}</div>
+						<div class="fixtures__row--awayScore">{{fixture.awayScore}}</div>
+						<div class="fixtures__row--awayTeam">{{fixture.awayTeam}}</div>
+						<div class="fixtures__row--venue">{{fixture.venueName}}</div>
+					</div>
+				</ng-container>
 
-  					<ng-container *ngFor="let fixture of division.fixtures" class="table__row">
-  						<tr>
-  							<td class="table__row table__row--">{{fixture.datestamp | date}}</td>
-  							<td class="table__row table__row--">{{fixture.time}}</td>
-  							<td class="table__row table__row--">{{fixture.homeTeam}}</td>
-  							<td class="table__row table__row--">{{fixture.homeScore}}</td>
-  							<td class="table__row table__row--">{{fixture.awayScore}}</td>
-  							<td class="table__row table__row--">{{fixture.awayTeam}}</td>
-  							<td class="table__row table__row--">{{fixture.venueName}}</td>
-  						</tr>
-  					</ng-container>
+			</div>
 
-  				</table>
+    </ng-container>
 
-			  </div>
-
-      </ng-container>
-
-		</div>
-
-	</div>
+  </div>
 
 </div>
-
