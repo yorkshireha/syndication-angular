@@ -48,7 +48,7 @@
     &__row {
       border-bottom: 1px solid #ccc;
       display: grid;
-      grid-template-columns: 2fr 2fr 4fr 1fr 1fr 4fr 3fr;
+      grid-template-columns: 4fr 2fr 8fr 1fr 1fr 8fr 7fr;
       grid-gap: 16px;
       padding: 10px;
 
@@ -83,18 +83,20 @@
         grid-column: 7 / 8;
       }
 
+      &--heading {
+			  background-color: #ccc;
+      }
+
       &--notes {
+        background-color: #eee;
         grid-column: 1 / 8;
         text-align: right;
       }
 
       &--postponedText {
+        background-color: #eee;
         grid-column: 1 / 8;
         text-align: right;
-      }
-
-      &--heading {
-			  background-color: #ccc;
       }
     }
 
