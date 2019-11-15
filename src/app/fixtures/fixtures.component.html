@@ -61,10 +61,10 @@
 			<div class="formRow">
 				<div class="formRow__label">Games</div>
 				<div class="formRow__field">
-					<ng-container *ngFor="let game of filterData.games; let i = index">
+					<ng-container *ngFor="let status of filterData.statuses; let i = index">
   					<label class="formField--multiline">
-  					  <input type="radio" formControlName="game" [value]="i">
-  					  {{game}}
+  					  <input type="radio" formControlName="status" [value]="i">
+  					  {{status}}
   					</label>
 					</ng-container>
 				</div>
@@ -110,10 +110,16 @@
 						<div class="fixtures__row--date">{{fixture.datestamp | date}}</div>
 						<div class="fixtures__row--time">{{fixture.time}}</div>
 						<div class="fixtures__row--homeTeam">{{fixture.homeTeam}}</div>
-						<div class="fixtures__row--homeScore">{{fixture.homeScore}}</div>
-						<div class="fixtures__row--awayScore">{{fixture.awayScore}}</div>
+						<div class="fixtures__row--homeScore">{{fixture.isPostponed ? 'P' : fixture.homeScore}}</div>
+						<div class="fixtures__row--awayScore">{{fixture.isPostponed ? 'P' : fixture.awayScore}}</div>
 						<div class="fixtures__row--awayTeam">{{fixture.awayTeam}}</div>
 						<div class="fixtures__row--venue">{{fixture.venueName}}</div>
+						<div *ngIf="fixture.notes" class="fixtures__row--notes">
+						  Notes: {{fixture.notes}}
+						</div>
+						<div *ngIf="fixture.postponedText" class="fixtures__row--postponedText">
+						  Postponed: {{fixture.postponedText}}
+						</div>
 					</div>
 				</ng-container>
 

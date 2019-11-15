@@ -28,7 +28,7 @@ export class FixturesComponent implements OnInit {
       division: [''],
       club: [''],
       team: [''],
-      game: [''],
+      status: [''],
       venueName: [''],
       homeAway: ['']
     });
@@ -53,7 +53,7 @@ export class FixturesComponent implements OnInit {
       .subscribe((data: any) => {
         console.log('getFilterData', data);
 
-        data.games = [
+        data.statuses = [
           'All',
           'Confirmed result',
           'Unconfirmed result',
@@ -88,7 +88,7 @@ export class FixturesComponent implements OnInit {
           division: '',
           club: '',
           team: '',
-          game: 0,
+          status: 0,
           venueName: '',
           homeAway: 0
         });
@@ -147,7 +147,7 @@ export class FixturesComponent implements OnInit {
         }
 
 
-        if (filter.game > 0 && filter.game !== fixture.game) {
+        if (filter.status > 0 && filter.status !== fixture.status) {
            keepFixture = false;
         }
 
