@@ -15,8 +15,8 @@
 				<div class="formRow">
 					<div class="formRow__label">Date</div>
 					<div class="formRow__field">
-						<select formControlName="date" class="formRow__field">
-								<option *ngFor="let date of filterData.dates" [value]="date.datestamp">{{date.datestamp | date}}</option>
+						<select formControlName="date">
+							<option *ngFor="let date of filterData.dates" [value]="date.datestamp">{{date.datestamp | date}}</option>
 						</select>
 					</div>
 				</div>
@@ -25,7 +25,7 @@
 					<div class="formRow__label">Division</div>
 					<div class="formRow__field">
 						<select formControlName="division">
-								<option *ngFor="let division of filterData.divisions" [value]="division.nameLong">{{division.nameLong}}</option>
+							<option *ngFor="let division of filterData.divisions" [value]="division.nameLong">{{division.nameLong}}</option>
 						</select>
 					</div>
 				</div>
@@ -34,7 +34,7 @@
 					<div class="formRow__label">Club</div>
 					<div class="formRow__field">
 						<select formControlName="club">
-								<option *ngFor="let club of filterData.clubs" [value]="club.name">{{club.name}}</option>
+							<option *ngFor="let club of filterData.clubs" [value]="club.name">{{club.name}}</option>
 						</select>
 					</div>
 				</div>
@@ -45,7 +45,7 @@
 						<div class="formRow__label">Team</div>
 	  				<div class="formRow__field">
 	  					<select formControlName="team">
-	  							<option *ngFor="let team of filterData.teams; let i = index" [value]="i">{{team[i]}}</option>
+	  						<option *ngFor="let team of filterData.teams; let i = index" [value]="i">{{team[i]}}</option>
 	  					</select>
 	  				</div>
 					</div>
@@ -80,7 +80,7 @@
 					<div class="formRow__label">Venues</div>
 					<div class="formRow__field">
 						<select formControlName="venueName">
-								<option *ngFor="let venue of filterData.venues" [value]="venue.name">{{venue.name}}</option>
+							<option *ngFor="let venue of filterData.venues" [value]="venue.name">{{venue.name}}</option>
 						</select>
 					</div>
 				</div>
