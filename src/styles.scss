@@ -1,18 +1,43 @@
+$spacing-small: 5px;
+$spacing-medium: 10px;
+$spacing-large: 20px;
+
+$color-heading: #ccc;
+$color-subheading: #eee;
+$color-eyecatcher: #eee;
+
 .leagman {
+
+  /*==================================================
+    Common
+    ==================================================*/
+  .title {
+		background-color: $color-heading;
+		padding: $spacing-medium;
+		
+		&--headline {
+			font-size: 1.5em;
+		}
+
+		&--subline {
+			font-size: 1.2em;
+		}
+  }
 
   /*==================================================
     Filter form
     ==================================================*/
 
   .filterForm {
-    border: 1px solid #ccc;
-    margin-top: 10px;
+    border: 1px solid $color-heading;
+    margin-top: $spacing-medium;
+    padding: $spacing-medium 0;
 
     .formRow {
       display: grid;
       grid-template-columns: 200px 1fr;
-      grid-gap: 16px;
-      padding: 10px;
+      grid-gap: $spacing-large;
+      padding: $spacing-medium;
 
       &__label {
         grid-column: 1 / 2;
@@ -22,18 +47,32 @@
         grid-column: 2 / 3;
 
       }
-
     }
 
     .formField{
-
       &--multiline {
         display: block;
       }
-
     }
 
-  }
+		@media (max-device-width: 599px) {
+	    .formRow {
+	      grid-template-columns: 1fr;
+	      grid-gap: $spacing-small;
+      	padding: 0 $spacing-medium;
+
+	      &__label {
+	        grid-column: 1 / 2;
+	      }
+
+	      &__field {
+	        grid-column: 1 / 2;
+					padding-bottom: $spacing-small;
+					padding-left: $spacing-medium;
+	      }
+	    }
+	  }
+	}
 
   /*==================================================
     Fixtures
@@ -42,15 +81,15 @@
     width: 100%;
 
     &__header {
-      background-color: #ccc;
+      background-color: $color-heading;
     }
 
     &__row {
-      border-bottom: 1px solid #ccc;
+      border-bottom: 1px solid $color-heading;
       display: grid;
-      grid-template-columns: 4fr 2fr 8fr 1fr 1fr 8fr 7fr;
-      grid-gap: 16px;
-      padding: 10px;
+      grid-template-columns: 4fr 2fr 8fr 1fr 1fr 1fr 8fr 7fr;
+      grid-gap: $spacing-large;
+      padding: $spacing-medium;
 
       &--date {
         grid-column: 1 / 2;
@@ -70,36 +109,95 @@
         text-align: center;
       }
 
-      &--awayScore {
+      &--result {
         grid-column: 5 / 6;
         text-align: center;
       }
 
-      &--awayTeam {
+      &--awayScore {
         grid-column: 6 / 7;
+        text-align: center;
       }
 
-      &--venue {
+      &--awayTeam {
         grid-column: 7 / 8;
       }
 
+      &--venue {
+        grid-column: 8 / 9;
+      }
+
       &--heading {
-			  background-color: #ccc;
+			  background-color: $color-heading;
       }
 
       &--notes {
-        background-color: #eee;
-        grid-column: 1 / 8;
+        background-color: $color-eyecatcher;
+        grid-column: 1 / 9;
         text-align: right;
       }
 
       &--postponedText {
         background-color: #eee;
-        grid-column: 1 / 8;
+        grid-column: 1 / 9;
         text-align: right;
       }
     }
 
+		@media (max-device-width: 599px) {
+	    &__row {
+	      grid-template-columns: 10fr 2fr 1fr 2fr 10fr;
+	      grid-gap: $spacing-small;
+	      padding: $spacing-medium;
+
+	      &--date {
+	        grid-column: 1 / 2;
+        	text-align: right;
+	      }
+
+	      &--time {
+	        grid-column: 5 / 6;
+	      }
+
+	      &--homeTeam {
+	        grid-column: 1 / 2;
+	        text-align: right;
+	      }
+
+	      &--homeScore {
+	        grid-column: 2 / 3;
+	        text-align: right;
+	      }
+
+	      &--result {
+	        grid-column: 3 / 4;
+	      }
+
+	      &--awayScore {
+	        grid-column: 4 / 5;
+	        text-align: left;
+	      }
+
+	      &--awayTeam {
+	        grid-column: 5 / 6;
+	      }
+
+	      &--venue {
+	        grid-column: 1 / 6;
+	        text-align: center;
+	      }
+
+	      &--notes {
+	        grid-column: 1 / 6;
+	        text-align: center;
+	      }
+
+	      &--postponedText {
+	        grid-column: 1 / 6;
+	        text-align: center;
+	      }
+	    }
+		}
   }
 
   /*==================================================
@@ -108,10 +206,6 @@
 
 	.tables{
 		width:100%;
-
-		&__form{
-					padding: 10px;
-		}
 
 		&__title{
 			font-size: 1.5em;
@@ -131,7 +225,7 @@
 		width:100%;
 
 		&__header{
-			background-color: #ccc;
+			background-color: $color-heading;
 			text-align: right;
 			vertical-align: middle;
 			width: 6%;
@@ -148,7 +242,7 @@
 		}
 
 		&__row{
-			border-bottom: 1px solid #ccc;
+			border-bottom: 1px solid $color-heading;
 			padding: 8px 4px;
 			text-align: right;
 			vertical-align: top;

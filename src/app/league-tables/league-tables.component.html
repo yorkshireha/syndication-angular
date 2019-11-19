@@ -30,12 +30,14 @@
 
 	<div *ngIf="leagueData" class="tables">
 
-		<div class="tables__title tables_title--league">{{leagueData.name}}</div>
+		<div class="title title--headline">{{leagueData.name}}</div>
+		<!-- //TODO is this needed
 		<div class="tables__notes">Last updated on {{leagueData.updated_on}}</div>
+		-->
 
 		<div *ngFor="let division of divisionsDataFiltered" class="tables__division">
 
-			<div class="tables__title tables__title--division">{{division.longName}}</div>
+			<div class="title title--subline">{{division.longName}}</div>
 
 			<table class="table">
 
