@@ -2,11 +2,11 @@
 
 	<div class="filterForm filterForm--fixtures">
 
+    <app-league-select [selectedLeague]="leagueId" (leagueChanged)="onLeagueChange($event)"></app-league-select>
+
 		<div class="toolbar">
 	  	<button *ngIf="filterData" (click)="toggleFilterForm()">filter</button>
   	</div>
-
-    <app-league-select [selectedLeague]="leagueId" (leagueChanged)="onLeagueChange($event)"></app-league-select>
 	  
 		<div [@openClose]="isFilterOpen ? 'open' : 'closed'" class="open-close-container">
 
