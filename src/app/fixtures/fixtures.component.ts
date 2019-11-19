@@ -2,12 +2,30 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 import { FormBuilder, FormGroup, FormArray, FormControl, ValidatorFn } from '@angular/forms';
+import { trigger, state, style, animate, transition } from '@angular/animations';
 
 import { ApiService } from '../api.service';
 
 @Component({
   selector: 'app-fixtures',
-  templateUrl: './fixtures.component.html'
+  templateUrl: './fixtures.component.html',
+  animations: [
+  	trigger('openClose', [
+	    state('open', style({
+	  		opacity: 1,
+			})),
+			state('closed', style({
+				height: 0,
+	  		opacity: 0
+			})),
+			transition('open => closed', [
+	  		animate('0.25s')
+			]),
+			transition('closed => open', [
+	  		animate('0.25s')
+			])
+		])
+  ]
 })
 export class FixturesComponent implements OnInit {
   leagueId;
@@ -16,6 +34,7 @@ export class FixturesComponent implements OnInit {
   filterData;
   fixturesData;
   clubSelected = false;
+  isFilterOpen = false;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -187,6 +206,10 @@ export class FixturesComponent implements OnInit {
       this.clubSelected = values.club != '';
       this.getFixturesData();
     });
+  }
+
+  toggleFilterForm() {
+    this.isFilterOpen = !this.isFilterOpen;
   }
 
 }

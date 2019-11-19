@@ -24,12 +24,18 @@ $color-eyecatcher: #eee;
 		}
   }
 
+	.toolbar {
+		padding: $spacing-medium;
+		text-align: right;
+	}
+
   /*==================================================
     Filter form
     ==================================================*/
 
   .filterForm {
     border: 1px solid $color-heading;
+    margin-bottom: $spacing-large;
     margin-top: $spacing-medium;
     padding: $spacing-medium 0;
 

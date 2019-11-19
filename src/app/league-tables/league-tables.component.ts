@@ -1,12 +1,30 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, FormArray, FormControl, ValidatorFn } from '@angular/forms';
+import { trigger, state, style, animate, transition } from '@angular/animations';
 
 import { ApiService } from '../api.service';
 
 @Component({
   selector: 'app-league-table',
-  templateUrl: './league-tables.component.html'
+  templateUrl: './league-tables.component.html',
+  animations: [
+  	trigger('openClose', [
+	    state('open', style({
+	  		opacity: 1,
+			})),
+			state('closed', style({
+				height: 0,
+	  		opacity: 0
+			})),
+			transition('open => closed', [
+	  		animate('0.25s')
+			]),
+			transition('closed => open', [
+	  		animate('0.25s')
+			])
+		])
+  ]
 })
 export class LeagueTablesComponent implements OnInit {
   leagueId;
@@ -14,6 +32,7 @@ export class LeagueTablesComponent implements OnInit {
   leagueData;
   divisionsDataFiltered;
   divisionList;
+  isFilterOpen = false;
 
   get divisions() {
     return this.filterForm.get('divisions') as FormArray;
@@ -95,6 +114,10 @@ export class LeagueTablesComponent implements OnInit {
     this.filterForm.valueChanges.subscribe(values => {
       this.filterLeagueData();
     });
+  }
+
+  toggleFilterForm() {
+    this.isFilterOpen = !this.isFilterOpen;
   }
 
 }

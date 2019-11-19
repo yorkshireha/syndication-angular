@@ -2,27 +2,34 @@
 
 	<div class="filterForm filterForm--tables">
 
+		<div class="toolbar">
+	  	<button *ngIf="leagueData" (click)="toggleFilterForm()">filter</button>
+  	</div>
+
     <app-league-select [selectedLeague]="leagueId" (leagueChanged)="onLeagueChange($event)"></app-league-select>
 
-		<form [formGroup]="filterForm">
+		<div [@openClose]="isFilterOpen ? 'open' : 'closed'" class="open-close-container">
+			<form [formGroup]="filterForm">
 
-			<div class="formRow" formArrayName="divisions">
+				<div class="formRow" formArrayName="divisions">
 
-				<div class="formRow__label">Divisions</div>
-				<div class="formRow__field">
-  				<ng-container *ngFor="let division of divisions.controls; let i = index">
+					<div class="formRow__label">Divisions</div>
+					<div class="formRow__field">
+	  				<ng-container *ngFor="let division of divisions.controls; let i = index">
 
-  					<label class="formField--multiline">
-  					  <input type="checkbox" [value]="i" [formControlName]="i">
-  					  {{divisionList[i]}}
-  					</label>
+	  					<label class="formField--multiline">
+	  					  <input type="checkbox" [value]="i" [formControlName]="i">
+	  					  {{divisionList[i]}}
+	  					</label>
 
-  				</ng-container>
+	  				</ng-container>
+					</div>
+
 				</div>
 
-			</div>
+			</form>
 
-		</form>
+		</div>
 
 	</div>
 
