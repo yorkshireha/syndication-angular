@@ -52,10 +52,6 @@ $color-eyecatcher: #eee;
 
       &__field {
         grid-column: 2 / 3;
-        
-        select {
-        	width: 100%;
-        }
       }
     }
 
@@ -79,6 +75,10 @@ $color-eyecatcher: #eee;
 	        grid-column: 1 / 2;
 					padding-bottom: $spacing-small;
 					padding-left: $spacing-medium;
+
+	        select {
+	        	width: 100%;
+	        }
 	      }
 	    }
 	  }
