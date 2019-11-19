@@ -17,6 +17,7 @@ $color-eyecatcher: #eee;
 		
 		&--headline {
 			font-size: 1.5em;
+			margin-bottom: $spacing-medium;
 		}
 
 		&--subline {
@@ -51,7 +52,10 @@ $color-eyecatcher: #eee;
 
       &__field {
         grid-column: 2 / 3;
-
+        
+        select {
+        	width: 100%;
+        }
       }
     }
 
@@ -210,74 +214,77 @@ $color-eyecatcher: #eee;
 
     ==================================================*/
 
-	.tables{
-		width:100%;
+  .league {
+		margin-bottom: $spacing-medium;
+  	width: 100%;
 
-		&__title{
-			font-size: 1.5em;
+    .divisionRow {
+   		border-bottom: 1px solid $color-subheading;
+      display: grid;
+      grid-template-columns: 1fr 18fr 2fr 2fr 2fr 2fr 2fr 2fr 2fr 2fr 2fr;
+      grid-gap: $spacing-small;
+      padding: $spacing-small;
+      text-align: right;
 
-			&--division{
-				font-size: 1.2em;
-			}
-		}
+      &--heading {
+      	background-color: $color-subheading;      	
+      }
 
-		&__notes{
-			font-size: .8em;
-		}
+      &--pos {
+        grid-column: 1 / 2;
+      	text-align: center;
+      }
+      &--team-name {
+        grid-column: 2 / 3;
+      	text-align: left;
+      }
+      &--played {
+        grid-column: 3 / 4;
+      }
+      &--won {
+        grid-column: 4 / 5;
+      }
+      &--drawn {
+        grid-column: 5 / 6;
+      }
+      &--lost {
+        grid-column: 6 / 7;
+      }
+      &--goals-f {
+        grid-column: 7 / 8;
+      }
+      &--goals-a {
+        grid-column: 8 / 9;
+      }
+      &--goal-diff {
+        grid-column: 9 / 10;
+      }
+      &--points {
+        grid-column: 10 / 11;
+      }
+      &--max-points {
+        grid-column: 11 / 12;
+      }
 
-	}
+      &--notes {
+        grid-column: 2 / 12;
+      	text-align: left;
+      }
+    }
 
-	.table{
-		width:100%;
-
-		&__header{
-			background-color: $color-heading;
-			text-align: right;
-			vertical-align: middle;
-			width: 6%;
-		}
-
-		&__header--pos{
-			text-align: center;
-			width: 3%;
-		}
-
-		&__header--team_name{
-			text-align: left;
-			width: 37%;
-		}
-
-		&__row{
-			border-bottom: 1px solid $color-heading;
-			padding: 8px 4px;
-			text-align: right;
-			vertical-align: top;
-		}
-
-		&__row--pos{
-			text-align: center;
-		}
-
-		&__row--team_name{
-			text-align: left;
-		}
-
-		&__row--deductions{
-			display: block;
-			font-size: .8em;
-		}
-
-	}
+  }
 
 	@media all and (max-device-width: 599px) {
-		.table__header--goals_f,
-		.table__header--goals_a,
-		.table__header--max_points,
-		.table__row--goals_f,
-		.table__row--goals_a,
-		.table__row--max_points
-		{
-			display: none;
+	  .league {
+	    .divisionRow {
+      	grid-template-columns: 1fr 18fr 2fr 2fr 2fr 2fr 0 0  2fr 2fr 0;
+
+	      &--goals-f,
+	      &--goals-a,
+	      &--max-points {
+					display: none;
+				}
+			}
 		}
 	}
 }
