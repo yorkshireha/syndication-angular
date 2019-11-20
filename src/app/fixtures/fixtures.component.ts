@@ -10,21 +10,21 @@ import { ApiService } from '../api.service';
   selector: 'app-fixtures',
   templateUrl: './fixtures.component.html',
   animations: [
-  	trigger('openClose', [
-	    state('open', style({
-	  		opacity: 1,
-			})),
-			state('closed', style({
-				height: 0,
-	  		opacity: 0
-			})),
-			transition('open => closed', [
-	  		animate('0.25s')
-			]),
-			transition('closed => open', [
-	  		animate('0.25s')
-			])
-		])
+    trigger('openClose', [
+      state('open', style({
+        opacity: 1,
+      })),
+      state('closed', style({
+        height: 0,
+        opacity: 0
+      })),
+      transition('open => closed', [
+        animate('0.25s')
+      ]),
+      transition('closed => open', [
+        animate('0.25s')
+      ])
+    ])
   ]
 })
 export class FixturesComponent implements OnInit {
@@ -102,8 +102,14 @@ export class FixturesComponent implements OnInit {
         this.filterData = data;
         console.log(this.filterForm);
 
+        let today: any = new Date();
+        today.setHours(0,0,0,0);
+        today = Date.parse(today.toString());
+        const found = this.filterData.dates.find(timestamp => timestamp.datestamp > today);
+        console.log('today', today, new Date(today), this.filterData.dates[1].datestamp, found);
+
         this.filterForm.setValue({
-          date: this.filterData.dates[1].datestamp,
+          date: found.datestamp,
           division: '',
           club: '',
           team: '',
