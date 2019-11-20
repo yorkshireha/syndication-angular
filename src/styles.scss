@@ -97,56 +97,49 @@ $color-eyecatcher: #eee;
     &__row {
       border-bottom: 1px solid $color-heading;
       display: grid;
-      grid-template-columns: 4fr 2fr 8fr 1fr 1fr 1fr 8fr 7fr;
-      grid-gap: $spacing-large;
+      grid-template-columns: 5fr 8fr 8fr 1fr 1fr 1fr 8fr ;
+      grid-gap: $spacing-small;
       padding: $spacing-medium;
 
       &--date {
         grid-column: 1 / 2;
       }
-
       &--time {
         grid-column: 2 / 3;
       }
-
       &--homeTeam {
         grid-column: 3 / 4;
+        grid-row: 1 / 3;
         text-align: right;
       }
-
       &--homeScore {
         grid-column: 4 / 5;
-        text-align: center;
+        grid-row: 1 / 3;
+        text-align: right;
       }
-
       &--result {
         grid-column: 5 / 6;
+        grid-row: 1 / 3;
         text-align: center;
       }
-
       &--awayScore {
         grid-column: 6 / 7;
-        text-align: center;
+        grid-row: 1 / 3;
       }
-
       &--awayTeam {
         grid-column: 7 / 8;
+        grid-row: 1 / 3;
       }
-
       &--venue {
-        grid-column: 8 / 9;
+        grid-column: 1 / 3;
       }
-
       &--heading {
 			  background-color: $color-heading;
       }
-
       &--notes {
         background-color: $color-eyecatcher;
         grid-column: 1 / 9;
-        text-align: right;
       }
-
       &--postponedText {
         background-color: #eee;
         grid-column: 1 / 9;
@@ -157,51 +150,47 @@ $color-eyecatcher: #eee;
 		@media (max-device-width: 599px) {
 	    &__row {
 	      grid-template-columns: 10fr 2fr 1fr 2fr 10fr;
-	      grid-gap: $spacing-small;
-	      padding: $spacing-medium;
+	      grid-gap: 0 $spacing-small;
+	      padding: $spacing-small 0;
 
 	      &--date {
 	        grid-column: 1 / 2;
         	text-align: right;
 	      }
-
 	      &--time {
 	        grid-column: 5 / 6;
 	      }
-
 	      &--homeTeam {
 	        grid-column: 1 / 2;
+        	grid-row: 2 / 3;
 	        text-align: right;
 	      }
-
 	      &--homeScore {
 	        grid-column: 2 / 3;
+        	grid-row: 2 / 3;
 	        text-align: right;
 	      }
-
 	      &--result {
 	        grid-column: 3 / 4;
+        	grid-row: 2 / 3;
 	      }
-
 	      &--awayScore {
 	        grid-column: 4 / 5;
+        	grid-row: 2 / 3;
 	        text-align: left;
 	      }
-
 	      &--awayTeam {
 	        grid-column: 5 / 6;
+        	grid-row: 2 / 3;
 	      }
-
 	      &--venue {
 	        grid-column: 1 / 6;
 	        text-align: center;
 	      }
-
 	      &--notes {
 	        grid-column: 1 / 6;
 	        text-align: center;
 	      }
-
 	      &--postponedText {
 	        grid-column: 1 / 6;
 	        text-align: center;
