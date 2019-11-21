@@ -120,4 +120,7 @@ export class LeagueTablesComponent implements OnInit {
     this.isFilterOpen = !this.isFilterOpen;
   }
 
+  toggleDeductions(id) {
+    document.getElementById(id).classList.toggle('hidden');
+  }
 }

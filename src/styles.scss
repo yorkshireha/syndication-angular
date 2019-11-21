@@ -6,6 +6,9 @@ $color-heading: #ccc;
 $color-subheading: #eee;
 $color-eyecatcher: #eee;
 
+$font-bigger: 1.2em;
+$font-smaller: 0.8em;
+
 .leagman {
 
   /*==================================================
@@ -29,6 +32,10 @@ $color-eyecatcher: #eee;
 		padding: $spacing-medium;
 		text-align: right;
 	}
+
+  .hidden {
+    display: none;
+  }
 
   /*==================================================
     Filter form
@@ -254,10 +261,21 @@ $color-eyecatcher: #eee;
       &--max-points {
         grid-column: 11 / 12;
       }
-
-      &--notes {
+      &--deductions {
+      	background-color: $color-subheading;      	
         grid-column: 2 / 12;
-      	text-align: left;
+        padding: $spacing-small;
+        text-align: left;
+      }
+      &--notes {
+      	background-color: $color-subheading;      	
+        grid-column: 2 / 12;
+        padding: $spacing-small;
+        text-align: left;
+      }
+
+      &--inline-notes {
+        font-size: $font-smaller;
       }
     }
 
