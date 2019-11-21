@@ -6,6 +6,10 @@ $color-heading: #ccc;
 $color-subheading: #eee;
 $color-eyecatcher: #eee;
 
+$border-dark: #aaa;
+$border-medium: #ccc;
+$border-light: #eee;
+
 $font-bigger: 1.2em;
 $font-smaller: 0.8em;
 
@@ -42,7 +46,7 @@ $font-smaller: 0.8em;
     ==================================================*/
 
   .filterForm {
-    border: 1px solid $color-heading;
+    border: 1px solid $border-dark;
     margin-bottom: $spacing-large;
     margin-top: $spacing-medium;
     padding: $spacing-medium 0;
@@ -102,7 +106,7 @@ $font-smaller: 0.8em;
     }
 
     &__row {
-      border-bottom: 1px solid $color-heading;
+      border-bottom: 1px solid $border-medium;
       display: grid;
       grid-template-columns: 5fr 8fr 8fr 1fr 1fr 1fr 8fr ;
       grid-gap: $spacing-small;
@@ -146,10 +150,13 @@ $font-smaller: 0.8em;
       &--notes {
         background-color: $color-eyecatcher;
         grid-column: 1 / 9;
+        padding: $spacing-small;
+        text-align: right;
       }
       &--postponedText {
         background-color: #eee;
         grid-column: 1 / 9;
+        padding: $spacing-small;
         text-align: right;
       }
     }
@@ -215,7 +222,7 @@ $font-smaller: 0.8em;
   	width: 100%;
 
     .divisionRow {
-   		border-bottom: 1px solid $color-subheading;
+   		border-bottom: 1px solid $border-medium;
       display: grid;
       grid-template-columns: 1fr 18fr 2fr 2fr 2fr 2fr 2fr 2fr 2fr 2fr 2fr;
       grid-gap: $spacing-small;
@@ -262,13 +269,13 @@ $font-smaller: 0.8em;
         grid-column: 11 / 12;
       }
       &--deductions {
-      	background-color: $color-subheading;      	
+      	background-color: $color-eyecatcher;      	
         grid-column: 2 / 12;
         padding: $spacing-small;
         text-align: left;
       }
       &--notes {
-      	background-color: $color-subheading;      	
+      	background-color: $color-eyecatcher;
         grid-column: 2 / 12;
         padding: $spacing-small;
         text-align: left;
