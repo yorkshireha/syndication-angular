@@ -5,7 +5,7 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root'
 })
 export class ApiService {
-  apiPrefix = 'http://www.yorkshireha.org.uk/e107_plugins/yha_pages/lmGet.json?';
+  apiPrefix = 'http://www.yorkshireha.org.uk/e107_plugins/yha_pages/lmGet.php?';
 
   constructor(private http: HttpClient) { }
 
