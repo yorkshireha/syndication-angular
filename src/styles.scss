@@ -6,6 +6,9 @@ $color-heading: #ccc;
 $color-subheading: #eee;
 $color-eyecatcher: #eee;
 
+$color-promote: rgba(0,255,0,0.1);
+$color-relegate: rgba(255,0,0,0.1);
+
 $border-dark: #aaa;
 $border-medium: #ccc;
 $border-light: #eee;
@@ -221,7 +224,7 @@ $font-smaller: 0.8em;
   }
 
   /*==================================================
-
+    League
     ==================================================*/
 
   .league {
@@ -237,7 +240,15 @@ $font-smaller: 0.8em;
       text-align: right;
 
       &--heading {
-      	background-color: $color-subheading;      	
+      	background-color: $color-subheading;
+      }
+
+      &--promote {
+      	background-color: $color-promote;
+      }
+
+      &--relegate {
+      	background-color: $color-relegate;
       }
 
       &--pos {

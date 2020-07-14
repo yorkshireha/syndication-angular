@@ -69,10 +69,9 @@ export class LeagueTablesComponent implements OnInit {
         this.divisionsDataFiltered = [...this.leagueData.divisions];
         console.log('#divisionsDataFiltered', this.divisionsDataFiltered);
         this.getFilterData();
-        }, err => {
-          console.log(err);
-        }
-      );
+      }, err => {
+        console.log(err);
+      });
   }
 
   filterLeagueData() {

@@ -59,7 +59,7 @@
 				<div class="divisionRow--max-points">Max</div>
 			</div>
 
-			<div *ngFor="let team of division.teams" class="divisionRow divisionRow--{{team.extraclass}">
+			<div *ngFor="let team of division.teams" class="divisionRow" [ngClass]="{'1':'divisionRow--promote','-1':'divisionRow--relegate'}[team.promotion]">
 				<div class="divisionRow--pos">{{team.pos}}</div>
 				<div class="divisionRow--team-name">
 				  {{team.teamName}} <span *ngIf="team.deductPoints > 0" (click)="toggleDeductions('notes' + team.teamId)">***</span>
