@@ -29,8 +29,12 @@
         <dd *ngIf="clubData.website">{{clubData.website}}</dd>
       <dt *ngIf="clubData.email">EMail</dt>
         <dd *ngIf="clubData.email">{{clubData.email}}</dd>
-      <dt *ngIf="clubData.colours">Colours</dt>
-        <dd *ngIf="clubData.colours">{{clubData.colours}}</dd>
+      <dt *ngIf="clubData.colours.length">Colours</dt>
+        <dd *ngIf="clubData.colours.length">
+          <span *ngFor="let colour of clubData.colours">
+            {{colour}}<br/>
+          </span>
+        </dd>
       <dt *ngIf="clubData.notes">Notes</dt>
         <dd *ngIf="clubData.notes">{{clubData.notes}}</dd>
 

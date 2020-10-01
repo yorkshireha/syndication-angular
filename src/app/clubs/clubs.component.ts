@@ -50,6 +50,7 @@ export class ClubsComponent implements OnInit {
   getClubData() {
     this.apiService.getClub(this.route.snapshot.params.club)
       .subscribe((data: any) => {
+        data.colours = JSON.parse(data.colours);
         console.log('', data);
         this.clubData = data;
         }, err => {
