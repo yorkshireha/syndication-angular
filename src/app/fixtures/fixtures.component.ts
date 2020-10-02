@@ -58,8 +58,9 @@ export class FixturesComponent implements OnInit {
 
     if (this.route.snapshot.params.league) {
       this.leagueId = this.route.snapshot.params.league;
-      this.getViewData();
     }
+
+    this.getViewData();
   }
 
   getViewData(): void {
@@ -109,15 +110,16 @@ export class FixturesComponent implements OnInit {
         console.log('today', today, new Date(today), this.filterData.dates[1].datestamp, found);
 
         this.filterForm.setValue({
-          date: found.datestamp,
+          date: this.route.snapshot.params.club ? '' : found.datestamp,
           division: '',
-          club: '',
-          team: '',
+          club: this.route.snapshot.params.club ? this.route.snapshot.params.club : '',
+          team: this.route.snapshot.params.team ? this.route.snapshot.params.team : '',
           status: 0,
           venueName: '',
           homeAway: 0
         });
 
+        this.clubSelected = this.route.snapshot.params.club ? true : false;
         this.onFilterChanges();
 
       }, err => {

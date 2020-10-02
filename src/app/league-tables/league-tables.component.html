@@ -62,7 +62,8 @@
 			<div *ngFor="let team of division.teams" class="divisionRow" [ngClass]="{'1':'divisionRow--promote','-1':'divisionRow--relegate'}[team.promotion]">
 				<div class="divisionRow--pos">{{team.pos}}</div>
 				<div class="divisionRow--team-name">
-				  {{team.teamName}} <span *ngIf="team.deductPoints > 0" (click)="toggleDeductions('notes' + team.teamId)">***</span>
+          <a href="#" (click)="onTeamSelect($event, team.clubName, team.teamName)">{{team.teamName}}</a>
+          <span *ngIf="team.deductPoints > 0" (click)="toggleDeductions('notes' + team.teamId)">***</span>
 				  <div *ngIf="team.deductPoints > 0" id="notes{{team.teamId}}" class="divisionRow--inline-notes hidden">{{team.deductPoints}} - {{team.deductReason}}</div>
 				</div>
 				<div class="divisionRow--played">{{team.played}}</div>
@@ -75,7 +76,7 @@
 				<div class="divisionRow--points">{{team.points}}</div>
 				<div class="divisionRow--max-points">{{team.maxPoints}}</div>
 			</div>
-			
+
 			<div class="divisionRow divisionRow--footer">
 			  <div class="divisionRow--deductions">*** points deducted (click to see details)</div>
 			  <div *ngIf="division.notes" class="divisionRow--notes">{{division.notes}}</div>

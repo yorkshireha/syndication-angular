@@ -99,6 +99,7 @@ export class LeagueTablesComponent implements OnInit {
 
   onLeagueChange(event): void {
     console.log(event, this.route);
+    this.leagueId = event.leagueId;
     this.router.navigate(['tables', {league: event.leagueId}]).then( e => {
       if (e) {
         console.log('Navigation is successful!', e);
@@ -112,6 +113,24 @@ export class LeagueTablesComponent implements OnInit {
   onFilterChanges(): void {
     this.filterForm.valueChanges.subscribe(values => {
       this.filterLeagueData();
+    });
+  }
+
+  onTeamSelect(event, clubName, teamName): void {
+    let teamNumber = teamName.substr(teamName.lastIndexOf(' ') + 1);
+    console.log(event, teamName);
+    event.preventDefault();
+    this.router.navigate(['fixtures', {
+      league: this.leagueId,
+      club: clubName,
+      team: teamNumber
+    }]).then( e => {
+      if (e) {
+        console.log('Navigation is successful!', e);
+        this.ngOnInit();
+      } else {
+        console.log('Navigation has failed!', e);
+      }
     });
   }
 
