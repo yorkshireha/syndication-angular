@@ -9,21 +9,21 @@ import { ApiService } from '../api.service';
   selector: 'app-league-table',
   templateUrl: './league-tables.component.html',
   animations: [
-  	trigger('openClose', [
-	    state('open', style({
-	  		opacity: 1,
-			})),
-			state('closed', style({
-				height: 0,
-	  		opacity: 0
-			})),
-			transition('open => closed', [
-	  		animate('0.25s')
-			]),
-			transition('closed => open', [
-	  		animate('0.25s')
-			])
-		])
+    trigger('openClose', [
+      state('open', style({
+        opacity: 1,
+      })),
+      state('closed', style({
+        height: 0,
+        opacity: 0
+      })),
+      transition('open => closed', [
+        animate('0.25s')
+      ]),
+      transition('closed => open', [
+        animate('0.25s')
+      ])
+    ])
   ]
 })
 export class LeagueTablesComponent implements OnInit {
@@ -116,7 +116,7 @@ export class LeagueTablesComponent implements OnInit {
   }
 
   onTeamSelect(event, clubName, teamName): void {
-    let teamNumber = teamName.substr(teamName.lastIndexOf(' ') + 1);
+    const teamNumber = teamName.substr(teamName.lastIndexOf(' ') + 1);
     console.log(event, teamName);
     event.preventDefault();
     this.router.navigate(['fixtures', {

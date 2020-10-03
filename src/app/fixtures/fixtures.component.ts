@@ -205,7 +205,7 @@ export class FixturesComponent implements OnInit {
   }
 
   onLeagueFormLoaded(event) {
-    this.hideFilters = false
+    this.hideFilters = false;
     this.isSpinnerNeeded();
   }
 
