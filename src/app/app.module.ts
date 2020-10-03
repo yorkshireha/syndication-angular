@@ -5,6 +5,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { APP_BASE_HREF } from '@angular/common';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
+import { NgHttpCachingModule, NgHttpCachingConfig } from 'ng-http-caching';
+
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 
@@ -15,6 +17,10 @@ import { ClubsComponent } from './clubs/clubs.component';
 import { VenuesComponent } from './venues/venues.component';
 import { LeagueSelectComponent } from './controls/league-select/league-select.component';
 import { SpinnerComponent } from './spinner/spinner.component';
+
+const ngHttpCachingConfig: NgHttpCachingConfig = {
+  lifetime: 1000 * 60 // cache expire after 60 seconds
+};
 
 @NgModule({
   declarations: [
@@ -34,7 +40,8 @@ import { SpinnerComponent } from './spinner/spinner.component';
     HttpClientModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
-    AppRoutingModule    
+    NgHttpCachingModule.forRoot(ngHttpCachingConfig),
+    AppRoutingModule
   ],
   providers: [
     {
