@@ -9,6 +9,7 @@ import { ApiService } from '../../api.service';
 })
 export class LeagueSelectComponent implements OnInit {
   @Output() leagueChanged = new EventEmitter<object>();
+  @Output() formLoaded = new EventEmitter<object>();
   leagueForm: FormGroup;
   leaguesList;
   leagueId;
@@ -26,7 +27,6 @@ export class LeagueSelectComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log('leagueId', this.leagueId);
     this.leagueForm = this.formBuilder.group({
       leaguesList: [this.leagueId]
     });
@@ -36,7 +36,6 @@ export class LeagueSelectComponent implements OnInit {
 
   onLeagueChanges(): void {
     this.leagueForm.valueChanges.subscribe(values => {
-      console.log(values);
       this.leagueChanged.emit({
         leagueId: values.leaguesList
       });
@@ -44,14 +43,12 @@ export class LeagueSelectComponent implements OnInit {
   }
 
   getLeaguesList() {
-    this.apiService.getLeaguesList()
-      .subscribe((data) => {
-        this.leaguesList = data;
-        console.log(this.leaguesList);
-        }, err => {
-          console.log(err);
-        }
-      );
+    this.apiService.getLeaguesList().subscribe((data) => {
+      this.leaguesList = data;
+      this.formLoaded.emit();
+    }, err => {
+      console.log(err);
+    });
   }
 
 }

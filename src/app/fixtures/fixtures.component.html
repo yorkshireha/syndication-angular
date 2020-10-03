@@ -2,9 +2,9 @@
 
   <app-spinner [hideSpinner]="hideSpinner"></app-spinner>
 
-	<div class="filterForm filterForm--fixtures" [ngClass]="{'hidden': hideFilter}">
+	<div class="filterForm filterForm--fixtures" [ngClass]="{'hidden': hideFilters}">
 
-    <app-league-select [selectedLeague]="leagueId" (leagueChanged)="onLeagueChange($event)"></app-league-select>
+    <app-league-select [selectedLeague]="leagueId" (formLoaded)="onLeagueFormLoaded($event)" (leagueChanged)="onLeagueChange($event)"></app-league-select>
 
 		<div class="toolbar">
 	  	<button *ngIf="filterData" (click)="toggleFilterForm()">filter</button>

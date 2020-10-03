@@ -38,7 +38,7 @@ export class FixturesComponent implements OnInit {
   club;
   team;
   hideSpinner = false;
-  hideFilter = true;
+  hideFilters = true;
   hideFixtures = true;
 
   constructor(
@@ -59,8 +59,6 @@ export class FixturesComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log(this.route.snapshot.params);
-
     if (this.route.snapshot.params.league) {
       this.leagueId = this.route.snapshot.params.league;
     }
@@ -75,14 +73,16 @@ export class FixturesComponent implements OnInit {
   }
 
   getViewData(): void {
-    this.getFilterData();
-    this.getFixturesData();
+    if (this.leagueId) {
+      this.getFilterData();
+      this.getFixturesData();
+    } else {
+      this.isSpinnerNeeded();
+    }
   }
 
   getFilterData(): void {
-    this.apiService.getFixturesForm(this.leagueId)
-    .subscribe((data: any) => {
-      console.log('getFilterData', data);
+    this.apiService.getFixturesForm(this.leagueId).subscribe((data: any) => {
 
       data.statuses = [
         'All',
@@ -112,14 +112,11 @@ export class FixturesComponent implements OnInit {
       ];
 
       this.filterData = data;
-      console.log(this.filterForm);
 
       let today: any = new Date();
-      today.setHours(0,0,0,0);
+      today.setHours(0, 0, 0, 0);
       today = Date.parse(today.toString());
       const found = this.filterData.dates.find(timestamp => timestamp.datestamp > today);
-      console.log('today', today, new Date(today), this.filterData.dates[1].datestamp, found);
-      console.log(this.club, this.team);
 
       this.filterForm.setValue({
         date: this.club ? '' : found.datestamp,
@@ -134,28 +131,25 @@ export class FixturesComponent implements OnInit {
       this.clubSelected = this.club ? true : false;
       this.onFilterChanges();
 
-      this.hideFilter = false;
-      this.hideSpinner = !(this.hideFilters && this.hideFixtures) ;
+      this.hideFilters = false;
+      this.isSpinnerNeeded();
     }, err => {
         console.log(err);
     });
-
   }
 
   getFixturesData(): void {
-    this.apiService.getFixtures(this.leagueId)
-      .subscribe((data) => {
-        console.log('getFixturesDate', data);
-        this.fixturesData = this.filterFixtures(data);
-      }, err => {
-        console.log(err);
-      });
+    this.apiService.getFixtures(this.leagueId).subscribe((data) => {
+      this.fixturesData = this.filterFixtures(JSON.parse(JSON.stringify(data)));
+      console.log('getFixturesData', new Date());
+    }, err => {
+      console.log(err);
+    });
   }
 
   filterFixtures(data) {
     const filter = this.filterForm.value;
 
-    console.log(filter);
     data.forEach(division => {
       const newFixtures = [];
 
@@ -206,10 +200,15 @@ export class FixturesComponent implements OnInit {
 
     });
 
-    console.log(data);
     this.hideFixtures = false;
-    this.hideSpinner = !(this.hideFilters && this.hideFixtures) ;
+    this.isSpinnerNeeded();
     return data;
+  }
+
+  onLeagueFormLoaded(event) {
+    console.log(event);
+    this.hideFilters = false
+    this.isSpinnerNeeded();
   }
 
   onLeagueChange(event): void {
@@ -219,7 +218,7 @@ export class FixturesComponent implements OnInit {
       if (e) {
         console.log('Navigation is successful!', e);
         this.hideFixtures = true;
-        this.hideSpinner = !(this.hideFilters && this.hideFixtures) ;
+        this.isSpinnerNeeded();
         this.getViewData();
       } else {
         console.log('Navigation has failed!', e);
@@ -230,9 +229,9 @@ export class FixturesComponent implements OnInit {
   onFilterChanges(): void {
     this.filterForm.valueChanges.subscribe(values => {
       console.log(values);
-      this.clubSelected = values.club != '';
+      this.clubSelected = values.club !== '';
       this.hideFixtures = true;
-      this.hideSpinner = !(this.hideFilters && this.hideFixtures) ;
+      this.isSpinnerNeeded();
       this.getFixturesData();
     });
   }
@@ -241,4 +240,8 @@ export class FixturesComponent implements OnInit {
     this.isFilterOpen = !this.isFilterOpen;
   }
 
+  isSpinnerNeeded() {
+    console.log(this.leagueId, this.hideFilters, this.hideFixtures);
+    this.hideSpinner = !(this.hideFilters && this.hideFixtures);
+  }
 }
