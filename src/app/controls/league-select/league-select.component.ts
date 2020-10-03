@@ -18,7 +18,6 @@ export class LeagueSelectComponent implements OnInit {
     this.leagueId = leagueId || '';
   }
 
-
   constructor(
     private formBuilder: FormBuilder,
     private apiService: ApiService

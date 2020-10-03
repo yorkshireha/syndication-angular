@@ -1,9 +1,11 @@
 <div class="leagman">
 
-	<div class="filterForm filterForm--fixtures">
+  <app-spinner [hideSpinner]="hideSpinner"></app-spinner>
+
+	<div class="filterForm filterForm--fixtures" [ngClass]="{'hidden': hideFilter}">
 
     <app-league-select [selectedLeague]="leagueId" (leagueChanged)="onLeagueChange($event)"></app-league-select>
-    
+
 		<div class="toolbar">
 	  	<button *ngIf="filterData" (click)="toggleFilterForm()">filter</button>
   	</div>
@@ -91,7 +93,7 @@
 
 	</div>
 
-  <div *ngFor="let division of fixturesData" class="data">
+  <div *ngFor="let division of fixturesData" class="data" [ngClass]="{'hidden': hideFixtures}">
 
     <ng-container *ngIf="division.fixtures.length != 0">
 

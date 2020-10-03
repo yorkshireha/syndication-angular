@@ -35,6 +35,11 @@ export class FixturesComponent implements OnInit {
   fixturesData;
   clubSelected = false;
   isFilterOpen = false;
+  club;
+  team;
+  hideSpinner = false;
+  hideFilter = true;
+  hideFixtures = true;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -59,6 +64,12 @@ export class FixturesComponent implements OnInit {
     if (this.route.snapshot.params.league) {
       this.leagueId = this.route.snapshot.params.league;
     }
+    if (this.route.snapshot.params.club) {
+      this.club = this.route.snapshot.params.club;
+    }
+    if (this.route.snapshot.params.team) {
+      this.team = this.route.snapshot.params.team;
+    }
 
     this.getViewData();
   }
@@ -70,61 +81,65 @@ export class FixturesComponent implements OnInit {
 
   getFilterData(): void {
     this.apiService.getFixturesForm(this.leagueId)
-      .subscribe((data: any) => {
-        console.log('getFilterData', data);
+    .subscribe((data: any) => {
+      console.log('getFilterData', data);
 
-        data.statuses = [
-          'All',
-          'Confirmed result',
-          'Unconfirmed result',
-          'Unplayed'
-        ];
+      data.statuses = [
+        'All',
+        'Confirmed result',
+        'Unconfirmed result',
+        'Unplayed'
+      ];
 
-        data.homeAway = [
-          'All',
-          'Home',
-          'Away'
-        ];
+      data.homeAway = [
+        'All',
+        'Home',
+        'Away'
+      ];
 
-        data.teams = [
-          {0:   'All teams'},
-          {1:   '1'},
-          {2:   '2'},
-          {3:   '3'},
-          {4:   '4'},
-          {5:   '5'},
-          {6:   '6'},
-          {7:   '7'},
-          {8:   '8'},
-          {9:   '9'},
-          {10: '10'}
-        ];
+      data.teams = [
+        {0:   'All teams'},
+        {1:   '1'},
+        {2:   '2'},
+        {3:   '3'},
+        {4:   '4'},
+        {5:   '5'},
+        {6:   '6'},
+        {7:   '7'},
+        {8:   '8'},
+        {9:   '9'},
+        {10: '10'}
+      ];
 
-        this.filterData = data;
-        console.log(this.filterForm);
+      this.filterData = data;
+      console.log(this.filterForm);
 
-        let today: any = new Date();
-        today.setHours(0,0,0,0);
-        today = Date.parse(today.toString());
-        const found = this.filterData.dates.find(timestamp => timestamp.datestamp > today);
-        console.log('today', today, new Date(today), this.filterData.dates[1].datestamp, found);
+      let today: any = new Date();
+      today.setHours(0,0,0,0);
+      today = Date.parse(today.toString());
+      const found = this.filterData.dates.find(timestamp => timestamp.datestamp > today);
+      console.log('today', today, new Date(today), this.filterData.dates[1].datestamp, found);
+      console.log(this.club, this.team);
 
-        this.filterForm.setValue({
-          date: this.route.snapshot.params.club ? '' : found.datestamp,
-          division: '',
-          club: this.route.snapshot.params.club ? this.route.snapshot.params.club : '',
-          team: this.route.snapshot.params.team ? this.route.snapshot.params.team : '',
-          status: 0,
-          venueName: '',
-          homeAway: 0
-        });
-
-        this.clubSelected = this.route.snapshot.params.club ? true : false;
-        this.onFilterChanges();
-
-      }, err => {
-          console.log(err);
+      this.filterForm.setValue({
+        date: this.club ? '' : found.datestamp,
+        division: '',
+        club: this.club ? this.club : '',
+        team: this.team ? this.team : '',
+        status: 0,
+        venueName: '',
+        homeAway: 0
       });
+
+      this.clubSelected = this.club ? true : false;
+      this.onFilterChanges();
+
+      this.hideFilter = false;
+      this.hideSpinner = !(this.hideFilters && this.hideFixtures) ;
+    }, err => {
+        console.log(err);
+    });
+
   }
 
   getFixturesData(): void {
@@ -192,6 +207,8 @@ export class FixturesComponent implements OnInit {
     });
 
     console.log(data);
+    this.hideFixtures = false;
+    this.hideSpinner = !(this.hideFilters && this.hideFixtures) ;
     return data;
   }
 
@@ -201,6 +218,8 @@ export class FixturesComponent implements OnInit {
     this.router.navigate(['fixtures', {league: this.leagueId}]).then( e => {
       if (e) {
         console.log('Navigation is successful!', e);
+        this.hideFixtures = true;
+        this.hideSpinner = !(this.hideFilters && this.hideFixtures) ;
         this.getViewData();
       } else {
         console.log('Navigation has failed!', e);
@@ -212,6 +231,8 @@ export class FixturesComponent implements OnInit {
     this.filterForm.valueChanges.subscribe(values => {
       console.log(values);
       this.clubSelected = values.club != '';
+      this.hideFixtures = true;
+      this.hideSpinner = !(this.hideFilters && this.hideFixtures) ;
       this.getFixturesData();
     });
   }

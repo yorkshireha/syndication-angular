@@ -14,6 +14,7 @@ import { FixturesComponent } from './fixtures/fixtures.component';
 import { ClubsComponent } from './clubs/clubs.component';
 import { VenuesComponent } from './venues/venues.component';
 import { LeagueSelectComponent } from './controls/league-select/league-select.component';
+import { SpinnerComponent } from './spinner/spinner.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { LeagueSelectComponent } from './controls/league-select/league-select.co
     ClubsComponent,
     VenuesComponent,
     /* Controls */
-    LeagueSelectComponent
+    LeagueSelectComponent,
+    SpinnerComponent
   ],
   imports: [
     BrowserModule,
