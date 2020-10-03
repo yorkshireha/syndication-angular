@@ -40,7 +40,7 @@ const ngHttpCachingConfig: NgHttpCachingConfig = {
     HttpClientModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
-    NgHttpCachingModule.forRoot(ngHttpCachingConfig),
+    /* NgHttpCachingModule.forRoot(ngHttpCachingConfig), */
     AppRoutingModule
   ],
   providers: [
