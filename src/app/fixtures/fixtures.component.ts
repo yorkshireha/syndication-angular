@@ -141,7 +141,6 @@ export class FixturesComponent implements OnInit {
   getFixturesData(): void {
     this.apiService.getFixtures(this.leagueId).subscribe((data) => {
       this.fixturesData = this.filterFixtures(JSON.parse(JSON.stringify(data)));
-      console.log('getFixturesData', new Date());
     }, err => {
       console.log(err);
     });
@@ -206,17 +205,14 @@ export class FixturesComponent implements OnInit {
   }
 
   onLeagueFormLoaded(event) {
-    console.log(event);
     this.hideFilters = false
     this.isSpinnerNeeded();
   }
 
   onLeagueChange(event): void {
-    console.log(event, this.route);
     this.leagueId = event.leagueId;
     this.router.navigate(['fixtures', {league: this.leagueId}]).then( e => {
       if (e) {
-        console.log('Navigation is successful!', e);
         this.hideFixtures = true;
         this.isSpinnerNeeded();
         this.getViewData();
@@ -228,9 +224,7 @@ export class FixturesComponent implements OnInit {
 
   onFilterChanges(): void {
     this.filterForm.valueChanges.subscribe(values => {
-      console.log(values);
       this.clubSelected = values.club !== '';
-      this.hideFixtures = true;
       this.isSpinnerNeeded();
       this.getFixturesData();
     });
@@ -241,7 +235,6 @@ export class FixturesComponent implements OnInit {
   }
 
   isSpinnerNeeded() {
-    console.log(this.leagueId, this.hideFilters, this.hideFixtures);
     this.hideSpinner = !(this.hideFilters && this.hideFixtures);
   }
 }
