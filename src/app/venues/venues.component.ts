@@ -37,25 +37,23 @@ export class VenuesComponent implements OnInit {
   }
 
   getVenuesList() {
-    this.apiService.getVenuesList()
-      .subscribe((data) => {
-        console.log(data);
-        this.venuesList = data;
-        }, err => {
-          console.log(err);
-        }
-      );
+    this.apiService.getVenuesList().subscribe((data) => {
+      console.log(data);
+      this.venuesList = data;
+      }, err => {
+        console.log(err);
+      }
+    );
   }
 
   getVenueData() {
-    this.apiService.getVenue(this.route.snapshot.params.venue)
-      .subscribe((data: any) => {
-        console.log('', data);
-        this.venueData = data;
-        }, err => {
-          console.log(err);
-        }
-      );
+    this.apiService.getVenue(this.route.snapshot.params.venue).subscribe((data: any) => {
+      console.log('', data);
+      this.venueData = data;
+      }, err => {
+        console.log(err);
+      }
+    );
   }
 
   onChanges(): void {

@@ -37,26 +37,24 @@ export class ClubsComponent implements OnInit {
   }
 
   getClubsList() {
-    this.apiService.getClubsList()
-      .subscribe((data) => {
-        console.log(data);
-        this.clubsList = data;
-        }, err => {
-          console.log(err);
-        }
-      );
+    this.apiService.getClubsList().subscribe((data) => {
+      console.log(data);
+      this.clubsList = data;
+      }, err => {
+        console.log(err);
+      }
+    );
   }
 
   getClubData() {
-    this.apiService.getClub(this.route.snapshot.params.club)
-      .subscribe((data: any) => {
-        data.colours = JSON.parse(data.colours);
-        console.log('', data);
-        this.clubData = data;
-        }, err => {
-          console.log(err);
-        }
-      );
+    this.apiService.getClub(this.route.snapshot.params.club).subscribe((data: any) => {
+      data.colours = JSON.parse(data.colours);
+      console.log('', data);
+      this.clubData = data;
+      }, err => {
+        console.log(err);
+      }
+    );
   }
 
   onChanges(): void {

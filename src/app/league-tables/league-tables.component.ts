@@ -60,18 +60,17 @@ export class LeagueTablesComponent implements OnInit {
   }
 
   getLeagueData() {
-    this.apiService.getTables(this.route.snapshot.params.league)
-      .subscribe((data: any) => {
-        console.log('', data);
-        console.log('division', data.league.divisions);
-        console.log('team', data.league.divisions[0].teams[0]);
-        this.leagueData = data.league;
-        this.divisionsDataFiltered = [...this.leagueData.divisions];
-        console.log('#divisionsDataFiltered', this.divisionsDataFiltered);
-        this.getFilterData();
-      }, err => {
-        console.log(err);
-      });
+    this.apiService.getTables(this.route.snapshot.params.league).subscribe((data: any) => {
+      console.log('', data);
+      console.log('division', data.league.divisions);
+      console.log('team', data.league.divisions[0].teams[0]);
+      this.leagueData = data.league;
+      this.divisionsDataFiltered = [...this.leagueData.divisions];
+      console.log('#divisionsDataFiltered', this.divisionsDataFiltered);
+      this.getFilterData();
+    }, err => {
+      console.log(err);
+    });
   }
 
   filterLeagueData() {
