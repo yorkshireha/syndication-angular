@@ -65,34 +65,33 @@ export class LeagueTablesComponent implements OnInit {
   getLeagueData() {
     this.apiService.getTables(this.leagueId).subscribe((data: any) => {
       this.leagueData = data.league;
-      this.divisionsDataFiltered = [...this.leagueData.divisions];
       this.getFilterData();
     }, err => {
       console.log(err);
     });
   }
 
-  filterLeagueData() {
-    this.divisionsDataFiltered = [];
-    this.leagueData.divisions.forEach((division, ix) => {
-      if (this.divisions.value[ix]) {
-        this.divisionsDataFiltered.push(division);
-      }
-    });
-  }
-
   getFilterData(): void {
+    const divisionsQP = this.route.snapshot.params.divisions;
+
     this.filterForm = this.formBuilder.group({
       divisions: this.formBuilder.array([])
     });
+
+    this.divisionsDataFiltered = [];
+    if (divisionsQP) {
+      this.divisionsDataFiltered = this.leagueData.divisions.filter(el => divisionsQP.indexOf(el.shortName) > -1);
+    } else {
+      this.divisionsDataFiltered = [...this.leagueData.divisions];
+    }
+
     this.divisionList = [];
     this.leagueData.divisions.forEach(division => {
-      this.divisions.push(this.formBuilder.control(true));
+      this.divisions.push(this.formBuilder.control(this.divisionsDataFiltered.includes(division)));
       this.divisionList.push(division.longName);
     });
 
     this.onFilterChanges();
-
   }
 
   onLeagueChange(event): void {
@@ -108,7 +107,25 @@ export class LeagueTablesComponent implements OnInit {
 
   onFilterChanges(): void {
     this.filterForm.valueChanges.subscribe(values => {
-      this.filterLeagueData();
+      const divisions = values.divisions;
+      let divisionShortNames = [];
+      console.log(values);
+
+      divisionShortNames = this.leagueData.divisions.reduce((currentValue, el, ix) => {
+        return divisions[ix] ? currentValue + (currentValue.length ? ',' : '') + el.shortName : currentValue;
+      }, '');
+
+      console.log(divisionShortNames);
+      this.router.navigate(['tables', {
+        league: this.leagueId,
+        divisions: divisionShortNames
+      }]).then( e => {
+        if (e) {
+          this.ngOnInit();
+        } else {
+          console.log('Navigation has failed!', e);
+        }
+      });
     });
   }
 
