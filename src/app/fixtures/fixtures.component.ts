@@ -144,7 +144,6 @@ export class FixturesComponent implements OnInit {
 
   getFixturesData(): void {
     this.apiService.getFixtures(this.leagueId).subscribe((data) => {
-      console.log(data);
       this.fixturesData = this.filterFixtures(JSON.parse(JSON.stringify(data)));
     }, err => {
       console.log(err);

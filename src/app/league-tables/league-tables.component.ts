@@ -64,7 +64,6 @@ export class LeagueTablesComponent implements OnInit {
 
   getLeagueData() {
     this.apiService.getTables(this.leagueId).subscribe((data: any) => {
-      console.log(data);
       this.leagueData = data.league;
       this.divisionsDataFiltered = [...this.leagueData.divisions];
       this.getFilterData();
