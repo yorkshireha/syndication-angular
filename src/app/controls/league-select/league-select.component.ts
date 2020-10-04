@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, Output, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 
 import { ApiService } from '../../api.service';
+import { DatastoreService } from '../../datastore.service';
 
 @Component({
   selector: 'app-league-select',
@@ -21,8 +22,10 @@ export class LeagueSelectComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private apiService: ApiService
+    private apiService: ApiService,
+    private datastoreService: DatastoreService
   ) {
+    this.leagueId = this.datastoreService.getLeagueId();
     this.getLeaguesList();
   }
 
@@ -36,6 +39,7 @@ export class LeagueSelectComponent implements OnInit {
 
   onLeagueChanges(): void {
     this.leagueForm.valueChanges.subscribe(values => {
+      this.datastoreService.setLeagueId(values.leaguesList);
       this.leagueChanged.emit({
         leagueId: values.leaguesList
       });

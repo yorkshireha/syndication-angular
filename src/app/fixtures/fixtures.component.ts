@@ -5,6 +5,7 @@ import { FormBuilder, FormGroup, FormArray, FormControl, ValidatorFn } from '@an
 import { trigger, state, style, animate, transition } from '@angular/animations';
 
 import { ApiService } from '../api.service';
+import { DatastoreService } from '../datastore.service';
 
 @Component({
   selector: 'app-fixtures',
@@ -44,9 +45,11 @@ export class FixturesComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private apiService: ApiService,
+    private datastoreService: DatastoreService,
     private router: Router,
     private route: ActivatedRoute
   ) {
+    this.leagueId = this.datastoreService.getLeagueId();
     this.filterForm = this.formBuilder.group({
       date: [''],
       division: [''],

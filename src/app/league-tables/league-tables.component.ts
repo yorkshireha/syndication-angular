@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, FormArray, FormControl, ValidatorFn } from '@an
 import { trigger, state, style, animate, transition } from '@angular/animations';
 
 import { ApiService } from '../api.service';
+import { DatastoreService } from '../datastore.service';
 
 @Component({
   selector: 'app-league-table',
@@ -41,32 +42,29 @@ export class LeagueTablesComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private apiService: ApiService,
+    private datastoreService: DatastoreService,
     private router: Router,
     private route: ActivatedRoute
   ) {
+    this.leagueId = this.datastoreService.getLeagueId();
     this.filterForm = this.formBuilder.group({
       divisions: this.formBuilder.array([])
     });
   }
 
   ngOnInit() {
-    console.log(this.route.snapshot.params);
-
     if (this.route.snapshot.params.league) {
       this.leagueId = this.route.snapshot.params.league;
-      console.log(this.route.snapshot.params.league);
+    }
+    if (this.leagueId) {
       this.getLeagueData();
     }
   }
 
   getLeagueData() {
-    this.apiService.getTables(this.route.snapshot.params.league).subscribe((data: any) => {
-      console.log('', data);
-      console.log('division', data.league.divisions);
-      console.log('team', data.league.divisions[0].teams[0]);
+    this.apiService.getTables(this.leagueId).subscribe((data: any) => {
       this.leagueData = data.league;
       this.divisionsDataFiltered = [...this.leagueData.divisions];
-      console.log('#divisionsDataFiltered', this.divisionsDataFiltered);
       this.getFilterData();
     }, err => {
       console.log(err);
@@ -97,11 +95,9 @@ export class LeagueTablesComponent implements OnInit {
   }
 
   onLeagueChange(event): void {
-    console.log(event, this.route);
     this.leagueId = event.leagueId;
     this.router.navigate(['tables', {league: event.leagueId}]).then( e => {
       if (e) {
-        console.log('Navigation is successful!', e);
         this.getLeagueData();
       } else {
         console.log('Navigation has failed!', e);
@@ -117,7 +113,6 @@ export class LeagueTablesComponent implements OnInit {
 
   onTeamSelect(event, clubName, teamName): void {
     const teamNumber = teamName.substr(teamName.lastIndexOf(' ') + 1);
-    console.log(event, teamName);
     event.preventDefault();
     this.router.navigate(['fixtures', {
       league: this.leagueId,
@@ -125,7 +120,6 @@ export class LeagueTablesComponent implements OnInit {
       team: teamNumber
     }]).then( e => {
       if (e) {
-        console.log('Navigation is successful!', e);
         this.ngOnInit();
       } else {
         console.log('Navigation has failed!', e);
