@@ -21,8 +21,9 @@
 
 	<div *ngIf="venueData" class="tables">
 
-    <div>{{venueData.name}}</div>
+    <h2>{{venueData.name}}</h2>
 
+    <dl>
       <dt *ngIf="venueData.address">Address</dt>
         <dd *ngIf="venueData.address">{{venueData.address}}</dd>
       <dt *ngIf="venueData.postcode">Postcode</dt>
@@ -47,7 +48,7 @@
           <br/>
           <a href="https://www.bing.com/maps?where1={{venueData.postcode}}" target="_blank">View in Bing maps (opens in new window)</a>
         </dd>
-
+    </dl>
 	</div>
 
 </div>
