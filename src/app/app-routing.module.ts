@@ -8,7 +8,6 @@ import { ClubsComponent } from './clubs/clubs.component';
 import { VenuesComponent } from './venues/venues.component';
 
 const routes: Routes = [
-  { path: 'dashboard',    component: DashboardComponent },
   { path: 'tables',       component: LeagueTablesComponent },
   { path: 'tables/:id',   component: LeagueTablesComponent },
   { path: 'fixtures',     component: FixturesComponent },
@@ -17,7 +16,7 @@ const routes: Routes = [
   { path: 'clubs/:id',    component: ClubsComponent },
   { path: 'venues',       component: VenuesComponent },
   { path: 'venues/:id',   component: VenuesComponent },
-  { path: '',             redirectTo: '/dashboard', pathMatch: 'full' }
+  { path: '',             redirectTo: '/fixtures', pathMatch: 'full' }
 ];
 
 
