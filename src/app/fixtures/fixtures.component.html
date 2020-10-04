@@ -121,11 +121,15 @@
 				  <div class="fixtures__row">
 						<div class="fixtures__row--date">{{fixture.datestamp | date}}</div>
 						<div class="fixtures__row--time">{{fixture.time}}</div>
-						<div class="fixtures__row--homeTeam">{{fixture.homeTeam}}</div>
+						<div class="fixtures__row--homeTeam">
+              <a href="#" (click)="onTeamSelect($event, fixture.homeClub, fixture.homeTeam)">{{fixture.homeTeam}}</a>
+            </div>
 						<div class="fixtures__row--homeScore">{{fixture.isPostponed ? 'P' : fixture.homeScore}}</div>
 						<div class="fixtures__row--result">-</div>
 						<div class="fixtures__row--awayScore">{{fixture.isPostponed ? 'P' : fixture.awayScore}}</div>
-						<div class="fixtures__row--awayTeam">{{fixture.awayTeam}}</div>
+						<div class="fixtures__row--awayTeam">
+              <a href="#" (click)="onTeamSelect($event, fixture.awayClub, fixture.awayTeam)">{{fixture.awayTeam}}</a>
+            </div>
 						<div class="fixtures__row--venue">{{fixture.venueName}}</div>
 						<div *ngIf="fixture.notes" class="fixtures__row--notes">
 						  Notes: {{fixture.notes}}

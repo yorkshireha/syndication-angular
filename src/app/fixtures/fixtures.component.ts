@@ -16,6 +16,7 @@ import { DatastoreService } from '../datastore.service';
         opacity: 1,
       })),
       state('closed', style({
+        display: 'none',
         height: 0,
         opacity: 0
       })),
@@ -143,6 +144,7 @@ export class FixturesComponent implements OnInit {
 
   getFixturesData(): void {
     this.apiService.getFixtures(this.leagueId).subscribe((data) => {
+      console.log(data);
       this.fixturesData = this.filterFixtures(JSON.parse(JSON.stringify(data)));
     }, err => {
       console.log(err);
@@ -230,6 +232,22 @@ export class FixturesComponent implements OnInit {
       this.clubSelected = values.club !== '';
       this.isSpinnerNeeded();
       this.getFixturesData();
+    });
+  }
+
+  onTeamSelect(event, clubName, teamName): void {
+    const teamNumber = teamName.substr(teamName.lastIndexOf(' ') + 1);
+    event.preventDefault();
+    this.router.navigate(['fixtures', {
+      league: this.leagueId,
+      club: clubName,
+      team: teamNumber
+    }]).then( e => {
+      if (e) {
+        this.ngOnInit();
+      } else {
+        console.log('Navigation has failed!', e);
+      }
     });
   }
 
