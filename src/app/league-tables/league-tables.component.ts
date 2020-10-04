@@ -15,6 +15,7 @@ import { DatastoreService } from '../datastore.service';
         opacity: 1,
       })),
       state('closed', style({
+        display: 'none',
         height: 0,
         opacity: 0
       })),
@@ -63,6 +64,7 @@ export class LeagueTablesComponent implements OnInit {
 
   getLeagueData() {
     this.apiService.getTables(this.leagueId).subscribe((data: any) => {
+      console.log(data);
       this.leagueData = data.league;
       this.divisionsDataFiltered = [...this.leagueData.divisions];
       this.getFilterData();
