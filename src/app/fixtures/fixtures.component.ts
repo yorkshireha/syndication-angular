@@ -51,6 +51,19 @@ export class FixturesComponent implements OnInit {
     private route: ActivatedRoute
   ) {
     this.leagueId = this.datastoreService.getLeagueId();
+    if (this.leagueId) {
+      this.router.navigate(['fixtures', {
+        league: this.leagueId
+      }]).then( e => {
+        console.log(e);
+        if (e) {
+          this.ngOnInit();
+        } else {
+          console.log('Navigation has failed!', e);
+        }
+      });
+    }
+
     this.filterForm = this.formBuilder.group({
       date: [''],
       division: [''],
@@ -144,6 +157,7 @@ export class FixturesComponent implements OnInit {
 
   getFixturesData(): void {
     this.apiService.getFixtures(this.leagueId).subscribe((data) => {
+      console.log(data);
       this.fixturesData = this.filterFixtures(JSON.parse(JSON.stringify(data)));
     }, err => {
       console.log(err);
