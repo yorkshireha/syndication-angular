@@ -41,6 +41,12 @@
         <dd *ngIf="venueData.clubHouse">{{venueData.clubHouse}}</dd>
       <dt *ngIf="venueData.notes">Notes</dt>
         <dd *ngIf="venueData.notes">{{venueData.notes}}</dd>
+      <dt *ngIf="venueData.postcode">Map</dt>
+        <dd *ngIf="venueData.notes">
+          <a href="https://www.google.co.uk/maps/search/{{venueData.postcode}}" target="_blank">View in Google maps (opens in new window)</a>
+          <br/>
+          <a href="https://www.bing.com/maps?where1={{venueData.postcode}}" target="_blank">View in Bing maps (opens in new window)</a>
+        </dd>
 
 	</div>
 
