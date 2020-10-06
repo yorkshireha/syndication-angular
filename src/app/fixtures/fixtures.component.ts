@@ -166,7 +166,7 @@ export class FixturesComponent implements OnInit {
     const filter = this.filterForm.value;
 
     data.forEach(division => {
-      let newFixtures = [];
+      const newFixtures = [];
 
       division.fixtures.forEach(fixture => {
         let keepFixture = true;
@@ -247,7 +247,7 @@ export class FixturesComponent implements OnInit {
 
   onViewTablesSelect(event, shortName?): void {
     event.preventDefault();
-    let params: any = {
+    const params: any = {
       league: this.leagueId
     };
     if (shortName) {
