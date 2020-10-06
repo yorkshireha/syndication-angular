@@ -1,0 +1,55 @@
+<div class="leagman">
+
+	<div class="filterForm filterForm--venues">
+
+		<form [formGroup]="selectForm">
+
+			<div class="formRow">
+
+	      <div class="formRow__label">Venue</div>
+				<div class="formRowField">
+					<select formControlName="venuesList">
+						<option *ngFor="let venue of venuesList" [value]="venue.id">{{venue.name}}</option>
+					</select>
+				</div>
+
+		  </div>
+
+		</form>
+
+	</div>
+
+	<div *ngIf="venueData" class="tables">
+
+    <h2>{{venueData.name}}</h2>
+
+    <dl>
+      <dt *ngIf="venueData.address">Address</dt>
+        <dd *ngIf="venueData.address">{{venueData.address}}</dd>
+      <dt *ngIf="venueData.postcode">Postcode</dt>
+        <dd *ngIf="venueData.postcode">{{venueData.postcode}}</dd>
+      <dt *ngIf="venueData.contactName">Contact</dt>
+        <dd *ngIf="venueData.contactName">{{venueData.contactName}}</dd>
+      <dt *ngIf="venueData.telephone1">Tel1</dt>
+        <dd *ngIf="venueData.telephone1">{{venueData.telephone1}}</dd>
+      <dt *ngIf="venueData.telephone2">Tel2</dt>
+        <dd *ngIf="venueData.telephone2">{{venueData.telephone2}}</dd>
+      <dt *ngIf="venueData.astro">Astro</dt>
+        <dd *ngIf="venueData.astro">{{venueData.astro}}</dd>
+      <dt *ngIf="venueData.grass">Grass</dt>
+        <dd *ngIf="venueData.grass">{{venueData.grass}}</dd>
+      <dt *ngIf="venueData.clubHouse">Club house</dt>
+        <dd *ngIf="venueData.clubHouse">{{venueData.clubHouse}}</dd>
+      <dt *ngIf="venueData.notes">Notes</dt>
+        <dd *ngIf="venueData.notes">{{venueData.notes}}</dd>
+      <dt *ngIf="venueData.postcode">Map</dt>
+        <dd *ngIf="venueData.notes">
+          <a href="https://www.google.co.uk/maps/search/{{venueData.postcode}}" target="_blank">View in Google maps (opens in new window)</a>
+          <br/>
+          <a href="https://www.bing.com/maps?where1={{venueData.postcode}}" target="_blank">View in Bing maps (opens in new window)</a>
+        </dd>
+    </dl>
+	</div>
+
+</div>
+

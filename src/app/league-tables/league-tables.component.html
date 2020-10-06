@@ -1,0 +1,89 @@
+<div class="leagman">
+
+	<div class="filterForm filterForm--tables">
+
+    <app-league-select [selectedLeague]="leagueId" (leagueChanged)="onLeagueChange($event)"></app-league-select>
+
+		<div class="toolbar">
+	  	<button *ngIf="leagueData" (click)="toggleFilterForm()">filter</button>
+  	</div>
+
+		<div [@openClose]="isFilterOpen ? 'open' : 'closed'" class="open-close-container">
+
+			<form [formGroup]="filterForm">
+
+				<div class="formRow" formArrayName="divisions">
+
+					<div class="formRow__label">Divisions</div>
+					<div class="formRow__field">
+	  				<ng-container *ngFor="let division of divisions.controls; let i = index">
+
+	  					<label class="formField--multiline">
+	  					  <input type="checkbox" [value]="i" [formControlName]="i">
+	  					  {{divisionList[i]}}
+	  					</label>
+
+	  				</ng-container>
+					</div>
+
+				</div>
+
+			</form>
+
+		</div>
+
+	</div>
+
+	<div *ngIf="leagueData" class="tables">
+
+		<div class="title title--headline">{{leagueData.name}}</div>
+		<!-- //TODO is this needed
+		<div class="tables__notes">Last updated on {{leagueData.updated_on}}</div>
+		-->
+
+		<div *ngFor="let division of divisionsDataFiltered" class="league">
+
+			<div class="title title--subline">{{division.longName}}</div>
+
+			<div class="divisionRow divisionRow--heading">
+				<div class="divisionRow--pos"></div>
+				<div class="divisionRow--team-name">Team</div>
+				<div class="divisionRow--played">Ply</div>
+				<div class="divisionRow--won">W</div>
+				<div class="divisionRow--drawn">D</div>
+				<div class="divisionRow--lost">L</div>
+				<div class="divisionRow--goals-f">GF</div>
+				<div class="divisionRow--goals-a">GA</div>
+				<div class="divisionRow--goal-diff">GD</div>
+				<div class="divisionRow--points">Pts</div>
+				<div class="divisionRow--max-points">Max</div>
+			</div>
+
+			<div *ngFor="let team of division.teams" class="divisionRow" [ngClass]="{'1':'divisionRow--promote','-1':'divisionRow--relegate'}[team.promotion]">
+				<div class="divisionRow--pos">{{team.pos}}</div>
+				<div class="divisionRow--team-name">
+          <a href="#" (click)="onTeamSelect($event, team.clubName, team.teamName)">{{team.teamName}}</a>
+          <span *ngIf="team.deductPoints > 0" (click)="toggleDeductions('notes' + team.teamId)">***</span>
+				  <div *ngIf="team.deductPoints > 0" id="notes{{team.teamId}}" class="divisionRow--inline-notes hidden">{{team.deductPoints}} - {{team.deductReason}}</div>
+				</div>
+				<div class="divisionRow--played">{{team.played}}</div>
+				<div class="divisionRow--won">{{team.won}}</div>
+				<div class="divisionRow--drawn">{{team.drawn}}</div>
+				<div class="divisionRow--lost">{{team.lost}}</div>
+				<div class="divisionRow--goals-f">{{team.goalsF}}</div>
+				<div class="divisionRow--goals-a">{{team.goalsA}}</div>
+				<div class="divisionRow--goal-diff">{{team.goalsF - team.goalsA}}</div>
+				<div class="divisionRow--points">{{team.points}}</div>
+				<div class="divisionRow--max-points">{{team.maxPoints}}</div>
+			</div>
+
+			<div class="divisionRow divisionRow--footer">
+			  <div class="divisionRow--deductions">*** points deducted (click to see details)</div>
+			  <div *ngIf="division.notes" class="divisionRow--notes">{{division.notes}}</div>
+		  </div>
+
+		</div>
+
+	</div>
+
+</div>

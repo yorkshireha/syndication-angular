@@ -1,0 +1,19 @@
+<form [formGroup]="leagueForm">
+
+	<div class="formRow">
+
+	  <div class="formRow__label">League</div>
+
+	  <div class="formRow__field">
+
+  		<select formControlName="leaguesList" id="leaguesList">
+  			<!-- optgroup label="2019-2020" -->
+  				<option *ngFor="let league of leaguesList; let i = index" [value]="leaguesList[i].id">{{league.name}}</option>
+  			<!-- /optgroup -->
+  		</select>
+
+  	</div>
+
+	</div>
+
+</form>
