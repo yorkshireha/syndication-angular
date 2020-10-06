@@ -93,16 +93,27 @@
 
 	</div>
 
+  <div>
+    <a href="#" (click)="onViewTablesSelect($event)">
+      View league tables for all divisions</a>
+  </div>
+
   <div *ngFor="let division of fixturesData" class="data" [ngClass]="{'hidden': hideFixtures}">
 
     <ng-container *ngIf="division.fixtures.length != 0">
 
-			<div class="title title--subline">{{division.name}}</div>
+			<div class="title title--subline">
+        <h2>{{division.longName}}</h2>
+        <a href="#" (click)="onViewTablesSelect($event, division.shortName)">
+          View table
+          <!-- img src="assets/icons/league-table.png" alt="View league table for {{division.longName}}" / -->
+        </a>
+      </div>
 			<!--
 			<div class="tables__notes">Last updated on {{league.updated_on}}</div>
 			-->
 
-			<div class="fixtures">
+      <div class="fixtures">
 
 				<ng-container *ngFor="let fixture of division.fixtures" class="fixtures__row">
 				  <div class="fixtures__row">

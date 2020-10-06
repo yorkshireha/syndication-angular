@@ -131,12 +131,15 @@ export class LeagueTablesComponent implements OnInit {
 
   onTeamSelect(event, clubName, teamName): void {
     const teamNumber = teamName.substr(teamName.lastIndexOf(' ') + 1);
-    event.preventDefault();
-    this.router.navigate(['fixtures', {
+    const params = {
       league: this.leagueId,
       club: clubName,
       team: teamNumber
-    }]).then( e => {
+    };
+
+    console.log(params);
+    event.preventDefault();
+    this.router.navigate(['fixtures', params]).then( e => {
       if (e) {
         this.ngOnInit();
       } else {

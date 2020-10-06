@@ -51,18 +51,17 @@ export class FixturesComponent implements OnInit {
     private route: ActivatedRoute
   ) {
     this.leagueId = this.datastoreService.getLeagueId();
-    if (this.leagueId) {
-      this.router.navigate(['fixtures', {
-        league: this.leagueId
-      }]).then( e => {
-        console.log(e);
-        if (e) {
-          this.ngOnInit();
-        } else {
-          console.log('Navigation has failed!', e);
-        }
-      });
-    }
+//    if (this.leagueId) {
+//      this.router.navigate(['fixtures', {
+//        league: this.leagueId
+//      }]).then( e => {
+//        if (e) {
+//          this.ngOnInit();
+//        } else {
+//          console.log('Navigation has failed!', e);
+//        }
+//      });
+//    }
 
     this.filterForm = this.formBuilder.group({
       date: [''],
@@ -157,7 +156,6 @@ export class FixturesComponent implements OnInit {
 
   getFixturesData(): void {
     this.apiService.getFixtures(this.leagueId).subscribe((data) => {
-      console.log(data);
       this.fixturesData = this.filterFixtures(JSON.parse(JSON.stringify(data)));
     }, err => {
       console.log(err);
@@ -168,16 +166,16 @@ export class FixturesComponent implements OnInit {
     const filter = this.filterForm.value;
 
     data.forEach(division => {
-      const newFixtures = [];
-
-      if (filter.division !== '' && filter.division !== division.name) {
-        division.fixtures = newFixtures;
-      }
+      let newFixtures = [];
 
       division.fixtures.forEach(fixture => {
         let keepFixture = true;
 
         if (filter.date !== '' && filter.date !== fixture.datestamp) {
+          keepFixture = false;
+        }
+
+        if (filter.division !== '' && filter.division !== division.longName) {
           keepFixture = false;
         }
 
@@ -214,7 +212,6 @@ export class FixturesComponent implements OnInit {
       });
 
       division.fixtures = newFixtures;
-
     });
 
     this.hideFixtures = false;
@@ -245,6 +242,24 @@ export class FixturesComponent implements OnInit {
       this.clubSelected = values.club !== '';
       this.isSpinnerNeeded();
       this.getFixturesData();
+    });
+  }
+
+  onViewTablesSelect(event, shortName?): void {
+    event.preventDefault();
+    let params: any = {
+      league: this.leagueId
+    };
+    if (shortName) {
+      params.divisions = shortName;
+    }
+
+    this.router.navigate(['tables', params]).then( e => {
+      if (e) {
+        this.ngOnInit();
+      } else {
+        console.log('Navigation has failed!', e);
+      }
     });
   }
 
