@@ -19,24 +19,44 @@
 
 	</div>
 
-	<div *ngIf="clubData" class="tables">
+	<div *ngIf="clubData" class="club">
 
-    <div>{{clubData.name}}</div>
+    <h2>{{clubData.name}}</h2>
 
-      <dt *ngIf="clubData.teams">Teams</dt>
-        <dd *ngIf="clubData.teams">{{clubData.teams}}</dd>
-      <dt *ngIf="clubData.website">Website</dt>
-        <dd *ngIf="clubData.website">{{clubData.website}}</dd>
-      <dt *ngIf="clubData.email">EMail</dt>
-        <dd *ngIf="clubData.email">{{clubData.email}}</dd>
-      <dt *ngIf="clubData.colours.length">Colours</dt>
-        <dd *ngIf="clubData.colours.length">
-          <span *ngFor="let colour of clubData.colours">
-            {{colour}}<br/>
-          </span>
-        </dd>
-      <dt *ngIf="clubData.notes">Notes</dt>
-        <dd *ngIf="clubData.notes">{{clubData.notes}}</dd>
+    <dt *ngIf="clubData.teams">Teams</dt>
+    <dd *ngIf="clubData.teams">
+      <ul>
+        <ng-container *ngFor="let team of clubData.teams">
+          <li *ngIf="team.trim().length">{{team}}</li>
+        </ng-container>
+      </ul>
+    </dd>
+
+    <dt *ngIf="clubData.website">Website</dt>
+    <dd *ngIf="clubData.website"><ul><li>{{clubData.website}}</li></ul></dd>
+
+    <dt *ngIf="clubData.email">EMail</dt>
+    <dd *ngIf="clubData.email">
+      <ul>
+        <li>{{clubData.email}}</li>
+      </ul>
+    </dd>
+
+    <dt *ngIf="clubData.colours.length">Colours</dt>
+    <dd *ngIf="clubData.colours.length">
+      <ul>
+        <li *ngFor="let colour of clubData.colours">{{colour}}</li>
+      </ul>
+    </dd>
+
+    <dt *ngIf="clubData.notes" class="club__notes">Notes</dt>
+    <dd *ngIf="clubData.notes" class="club__notes">
+      <ul>
+        <ng-container *ngFor="let note of clubData.notes">
+          <li *ngIf="note.trim().length">{{note}}</li>
+        </ng-container>
+      </ul>
+    </dd>
 
 
 	</div>

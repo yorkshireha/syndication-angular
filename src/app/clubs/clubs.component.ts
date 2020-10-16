@@ -46,9 +46,15 @@ export class ClubsComponent implements OnInit {
     );
   }
 
+  _crlf2array(astring) {
+    return astring.split('\r\n');
+  }
+
   getClubData() {
     this.apiService.getClub(this.route.snapshot.params.club).subscribe((data: any) => {
+      data.teams = this._crlf2array(data.teams);
       data.colours = JSON.parse(data.colours);
+      data.notes = this._crlf2array(data.notes);
       console.log('', data);
       this.clubData = data;
       }, err => {
