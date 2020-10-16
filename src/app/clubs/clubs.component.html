@@ -8,7 +8,7 @@
 
   			<div class="form__label">Club</div>
 				<div class="formRowField">
-    			<select formControlName="clubsList">
+    			<select formControlName="clubId">
     				<option *ngFor="let club of clubsList" [value]="club.id">{{club.name}}</option>
     			</select>
     		</div>
@@ -33,12 +33,18 @@
     </dd>
 
     <dt *ngIf="clubData.website">Website</dt>
-    <dd *ngIf="clubData.website"><ul><li>{{clubData.website}}</li></ul></dd>
+    <dd *ngIf="clubData.website">
+      <ul>
+        <li>
+          <a href="http://{{clubData.website}}" target="_blank">{{clubData.website}}</a>
+        </li>
+      </ul>
+    </dd>
 
     <dt *ngIf="clubData.email">EMail</dt>
     <dd *ngIf="clubData.email">
       <ul>
-        <li>{{clubData.email}}</li>
+        <li *ngFor="let email of clubData.email">{{email}}</li>
       </ul>
     </dd>
 

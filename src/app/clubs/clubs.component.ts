@@ -10,6 +10,7 @@ import { ApiService } from '../api.service';
 })
 export class ClubsComponent implements OnInit {
   selectForm;
+  clubId;
   clubsList;
   clubData;
 
@@ -27,48 +28,63 @@ export class ClubsComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log(this.route.snapshot.params);
-
+    this.clubId = this.route.snapshot.params.club;
+    this.selectForm = this.formBuilder.group({
+      clubId: [this.clubId]
+    });
     if (this.route.snapshot.params.club) {
-      console.log(this.route.snapshot.params.club);
       this.getClubData();
     }
     this.onChanges();
   }
 
   getClubsList() {
-    this.apiService.getClubsList().subscribe((data) => {
-      console.log(data);
-      this.clubsList = data;
-      }, err => {
-        console.log(err);
-      }
-    );
+    this.apiService.getClubsList().subscribe((data: Array<any>) => {
+      this.clubsList = data.filter(el => {
+        return el.name != ''
+      });
+    }, err => {
+      console.log(err);
+    });
   }
 
   _crlf2array(astring) {
-    return astring.split('\r\n');
+    return typeof astring === 'string' ? astring.split('\r\n') : astring;
+  }
+
+  _comma2array(astring) {
+    return typeof astring === 'string' ? astring.split(',') : astring;
+  }
+
+  _killBBCodes(astring) {
+    return typeof astring === 'string' ? astring.replace(/\[.*\]/g, '') : astring;
   }
 
   getClubData() {
     this.apiService.getClub(this.route.snapshot.params.club).subscribe((data: any) => {
+      // BBCodes
+      data.notes = this._killBBCodes(data.notes);
+
+      // JSON
+      data.colours = Array.isArray(data.colours) ? data.colours : JSON.parse(data.colours);
+
+      // Commas
+      data.email = this._comma2array(data.email);
+
+      // Line endings
       data.teams = this._crlf2array(data.teams);
-      data.colours = JSON.parse(data.colours);
       data.notes = this._crlf2array(data.notes);
-      console.log('', data);
+
       this.clubData = data;
-      }, err => {
-        console.log(err);
-      }
-    );
+    }, err => {
+       console.log(err);
+    });
   }
 
   onChanges(): void {
     this.selectForm.valueChanges.subscribe(values => {
-      console.log(values, this.route);
-      this.router.navigate(['clubs', {club: values.clubsList}]).then( e => {
+      this.router.navigate(['clubs', {club: values.clubId}]).then( e => {
         if (e) {
-          console.log('Navigation is successful!', e);
           this.ngOnInit();
         } else {
           console.log('Navigation has failed!', e);
