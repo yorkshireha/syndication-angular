@@ -18,7 +18,7 @@
 					<div class="formRow__label">Date</div>
 					<div class="formRow__field">
 						<select formControlName="date">
-							<option *ngFor="let date of filterData.dates" [value]="date.datestamp">{{date.datestamp | date}}</option>
+							<option *ngFor="let date of filterData.dates" [value]="date.datestamp">{{date.dateshort}}</option>
 						</select>
 					</div>
 				</div>
